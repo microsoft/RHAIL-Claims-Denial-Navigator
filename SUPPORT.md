@@ -1,24 +1,29 @@
-# TODO: The maintainer of this repo has not yet edited this file
-
-**REPO OWNER**: Do you want Customer Service & Support (CSS) support for this product/project?
-
-- **No CSS support:** Fill out this template with information about how to file issues and get help.
-- **Yes CSS support:** Fill out an intake form at [aka.ms/onboardsupport](https://aka.ms/onboardsupport). CSS will work with/help you to determine next steps.
-- **Not sure?** Fill out an intake as though the answer were "Yes". CSS will help you decide.
-
-*Then remove this first heading from this SUPPORT.MD file before publishing your repo.*
-
 # Support
 
-## How to file issues and get help  
+Thank you for using this project!
 
-This project uses GitHub Issues to track bugs and feature requests. Please search the existing 
-issues before filing new issues to avoid duplicates.  For new issues, file your bug or 
-feature request as a new Issue.
+If you encounter any issues, have questions, or would like to suggest improvements, please use the GitHub Issues tab to report them. This helps us track, prioritize, and respond to feedback effectively.
 
-For help and questions about using this project, please **REPO MAINTAINER: INSERT INSTRUCTIONS HERE 
-FOR HOW TO ENGAGE REPO OWNERS OR COMMUNITY FOR HELP. COULD BE A STACK OVERFLOW TAG OR OTHER
-CHANNEL. WHERE WILL YOU HELP PEOPLE?**.
+## How to Submit an Issue
+
+When submitting an issue, please include the following details to help us address it quickly:
+
+- A clear and descriptive title
+- A summary of the issue or question
+- Steps to reproduce the issue (if applicable)
+- Expected and actual behavior
+- Any relevant screenshots, logs, or error messages
+- Your environment (e.g., OS, browser, version)
+
+## Feature Requests
+
+While we welcome feedback, please note that not all feature requests will be implemented. We prioritize based on impact, feasibility, and alignment with the project's goals.
+
+## Security Issues
+
+If you discover a security vulnerability, please do **not** submit it via GitHub Issues. Instead, contact us directly through the appropriate security disclosure process.
+
+Thank you for helping improve the project!
 
 ## Microsoft Support Policy  
 
