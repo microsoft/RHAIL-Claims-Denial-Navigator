@@ -1,13 +1,13 @@
-# Claims Denial Navigator 
+# Denial Navigator 
 
 ## Summary
 
-Claims Denial Navigator is an AI tool to help hospitals and other healthcare providers resolve denied Medicare, Medicaid, and Commercial Insurance claims. It simplifies the process by providing recommendations that align with payer guidelines, allowing the upload of 835 and 837 files with automation options, suggesting adjustments for denied claims, and presenting claim data in a review-friendly format. The development of Claims Denial Navigator is part of Microsoft's Rural Health AI Innovation Lab (RHAIL) initiative, which aims to collaborate with customers in developing innovative AI solutions for rural health challenges.
+Denial Navigator is an AI tool designed to help rural hospitals address and resolve denied Medicare, Medicaid, and Commercial Insurance claims. It simplifies the process by providing recommendations that align with payer guidelines, allowing the upload of 835 and 837 files with automation options, suggesting adjustments for denied claims, and presenting claim data in a review-friendly format. The tool was developed to alleviate the financial burden on hospitals, which spend nearly $20 billion annually on appealing denials. In 2023, denials issued by commercial MA plans rose sharply by 55.7%, and for other commercial payers, claims denials increased by 20.2%. The development of Denial Navigator is part of Microsoft's Rural Health AI Innovation Lab (RHAIL) initiative, which aims to collaborate with rural customers in developing innovative AI solutions for rural health challenges. The goal is to drive technology advancement, improve financial performance, and address health disparities unique to the patients and communities served
 
 
-![Claims Denial Navigator Main Page](assets/apphome.png)
+![Denial Navigator Main Page](assets/apphome.png)
 
-![Claims Denial Navigator Reccomendation](assets/appclaimwithfeedback.png)
+![Denial Navigator Reccomendation](assets/appclaimwithfeedback.png)
 
 ## Licensing requirements
 * Power Apps license.
@@ -19,19 +19,27 @@ See also: [Licensing overview for Power Platform](https://github.com/MicrosoftDo
 
 * [Microsoft Power Apps](https://docs.microsoft.com/powerapps/)
 
+
+## Compatibility
+![Premium License](https://img.shields.io/badge/Premium%20License%20Required-green.svg "Premium Power Apps license  required")
+![Experimental Features](https://img.shields.io/badge/Experimental%20Features-No-green.svg "Does not rely on experimental features")
+![On-Premises Connectors](https://img.shields.io/badge/On--Premises%20Connectors-No-green.svg "Does not use on-premise connectors")
+![Custom Connectors](https://img.shields.io/badge/Custom%20Connectors-Not%20Required-green.svg "Does not use custom connectors")
+
 ## Authors
+
 
 Solution|Author(s)
 --------|---------
-azureresources | Slalom RHAIL Team
-data | Slalom RHAIL Team
-solution | Slalom RHAIL Team
+azureresources | [RHAIL Team](LinkToYourGitHubProfile), Microsoft
+data | [RHAIL Team](LinkToYourGitHubProfile), Microsoft
+solution | [RHAIL Team](LinkToYourGitHubProfile), Microsoft
 
 ## Version history
 
 Version|Date|Comments
 -------|----|--------
-1.0|June 25, 2025|Initial release
+1.0|March 1, 2025|Initial release
 
 ## Features
 
@@ -123,6 +131,17 @@ You can also use the [Power Apps CLI](https://aka.ms/pac/docs) to pack the sourc
 
 **THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
 
+## Help
+
+> Note: don't worry about this section, we'll update the links.
+
+We do not support samples, but we this community is always willing to help, and we want to improve these samples. We use GitHub to track issues, which makes it easy for  community members to volunteer their time and help resolve issues.
+
+If you encounter any issues while using this sample, you can [create a new issue](https://github.com/pnp/powerapps-samples/issues/new?assignees=&labels=Needs%3A+Triage+%3Amag%3A%2Ctype%3Abug-suspected&template=bug-report.yml&sample=YOURSAMPLENAME&authors=@YOURGITHUBUSERNAME&title=YOURSAMPLENAME%20-%20).
+
+For questions regarding this sample, [create a new question](https://github.com/pnp/powerapps-samples/issues/new?assignees=&labels=Needs%3A+Triage+%3Amag%3A%2Ctype%3Abug-suspected&template=question.yml&sample=YOURSAMPLENAME&authors=@YOURGITHUBUSERNAME&title=YOURSAMPLENAME%20-%20).
+
+
 ## For more information
 
 - [Overview of creating apps in Power Apps](https://docs.microsoft.com/powerapps/maker/)
@@ -130,26 +149,3 @@ You can also use the [Power Apps CLI](https://aka.ms/pac/docs) to pack the sourc
 
 
 
-
-
-## Contributing
-
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit [Contributor License Agreements](https://cla.opensource.microsoft.com).
-
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
-
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
-
-## Trademarks
-
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft
-trademarks or logos is subject to and must follow
-[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/legal/intellectualproperty/trademarks/usage/general).
-Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
-Any use of third-party trademarks or logos are subject to those third-party's policies.
