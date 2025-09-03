@@ -36,6 +36,10 @@
 .NOTES
     Author: RHAIL Dev team
     Date: 2025-03-06
+
+	
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
 #>
 
 
