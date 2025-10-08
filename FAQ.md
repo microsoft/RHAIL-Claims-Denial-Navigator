@@ -12,7 +12,7 @@ The Claims Denials Navigator is a free tool to help hospitals and other healthca
 
 Behind the scenes, Claims Denials Navigator is a Model Driven Power App. Users upload their 835 text files to SharePoint, where the claim is parsed, processed by Azure OpenAI, and then one or more recommendations are generated.
 
-View a brief demo of the Claims Denial Navigator tool [HERE.](https://youtu.be/x4Ptlm3jY-I)
+View a brief demo of the Claims Denial Navigator tool [HERE.](https://www.youtube.com/playlist?list=PLzbVEpWZtL-XgFg_Un_EZARFmjEzWjcxp)
 
 **How can Claims Denial Navigator help me?**
 
