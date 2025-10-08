@@ -4,8 +4,6 @@
 
 Denial Navigator is an AI tool designed to help rural hospitals address and resolve denied Medicare, Medicaid, and Commercial Insurance claims. It simplifies the process by providing recommendations that align with payer guidelines, allowing the upload of 835 and 837 files with automation options, suggesting adjustments for denied claims, and presenting claim data in a review-friendly format. The tool was developed to alleviate the financial burden on hospitals, which spend nearly $20 billion annually on appealing denials. In 2023, denials issued by commercial MA plans rose sharply by 55.7%, and for other commercial payers, claims denials increased by 20.2%. The development of Denial Navigator is part of Microsoft's Rural Health AI Innovation Lab (RHAIL) initiative, which aims to collaborate with rural customers in developing innovative AI solutions for rural health challenges. The goal is to drive technology advancement, improve financial performance, and address health disparities unique to the patients and communities served
 
-<iframe width="560" height="315" src="https://youtu.be/Ii5I0H9VIAs?si=iIY21VOXW6NcDYSh" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 
 ![Denial Navigator Main Page](assets/apphome.png)
 
