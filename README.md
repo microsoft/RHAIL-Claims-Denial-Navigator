@@ -137,11 +137,7 @@ You can also use the [Power Apps CLI](https://aka.ms/pac/docs) to pack the sourc
 
 ## Help
 
-We do not support samples, but we this community is always willing to help, and we want to improve these samples. We use GitHub to track issues, which makes it easy for  community members to volunteer their time and help resolve issues.
-
-If you encounter any issues while using this sample, you can [create a new issue](https://github.com/pnp/powerapps-samples/issues/new?assignees=&labels=Needs%3A+Triage+%3Amag%3A%2Ctype%3Abug-suspected&template=bug-report.yml&sample=YOURSAMPLENAME&authors=@YOURGITHUBUSERNAME&title=YOURSAMPLENAME%20-%20).
-
-For questions regarding this sample, [create a new question](https://github.com/pnp/powerapps-samples/issues/new?assignees=&labels=Needs%3A+Triage+%3Amag%3A%2Ctype%3Abug-suspected&template=question.yml&sample=YOURSAMPLENAME&authors=@YOURGITHUBUSERNAME&title=YOURSAMPLENAME%20-%20).
+This repository is intended as a starting point for developers. It provides a base structure to help you begin coding quickly, but it is not actively maintained, and support will not be provided through GitHub. We do not offer assistance for issues or questions related to this base. However, you're welcome to explore, modify, and build upon it as needed. While we won’t be responding to GitHub issues or questions, the broader developer community is often generous with their time and may be able to help if you share your questions elsewhere (e.g., Stack Overflow, forums, or Discord groups).
 
 
 ## For more information
