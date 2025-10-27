@@ -1,11 +1,10 @@
-// Copyright (c) Microsoft Corporation.
-// Licensed under the MIT License.
-
 @description('Azure region where resources should be deployed')
 param location string = resourceGroup().location
 
 //param rgName string = resourceGroup().name
 
+@description('UTC timestamp used to create distinct deployment scripts for each deployment')
+param utcValue string = utcNow()
 
 @description('Desired name of the storage account')
 param storageAccountName string = uniqueString(resourceGroup().id, deployment().name, 'blob')
@@ -16,13 +15,15 @@ param containerNameRec string = 'recs'
 @description('Name of the blob container')
 param containerNameParse string = 'parse'
 
+@description('Name of the blob as it is stored in the blob container')
+param filename string = 'SubmittedUserFeedback.txt'
 
 @minLength(3)
 @maxLength(24)
 @description('Provide a name for the storage account. Use only lower case letters and numbers. The name must be unique across Azure.')
-param searchServicesName string = 'Search${uniqueString(resourceGroup().id)}'
+param searchServicesName string = 'rhailsearch${uniqueString(resourceGroup().id)}'
 
-param accountAzureAIName string = 'ClaimsCopilot${uniqueString(resourceGroup().id)}'
+param accounts_RHAILAIDev_name string = 'RHAILModel${uniqueString(resourceGroup().id)}'
 
 @description('create storage account and blobs')
 resource storage 'Microsoft.Storage/storageAccounts@2023-05-01' = {
@@ -80,7 +81,7 @@ resource searchServices 'Microsoft.Search/searchServices@2024-06-01-preview' = {
 
 
 resource openAI 'Microsoft.CognitiveServices/accounts@2024-04-01-preview' = {
-  name: accountAzureAIName
+  name: accounts_RHAILAIDev_name
   location: location
   tags: {
     azopenai: 'rhaildev'
@@ -90,18 +91,23 @@ resource openAI 'Microsoft.CognitiveServices/accounts@2024-04-01-preview' = {
   }
   kind: 'OpenAI'
   properties: {
-    customSubDomainName: accountAzureAIName
+    customSubDomainName: accounts_RHAILAIDev_name
     publicNetworkAccess: 'Enabled'
   }
 }
 
+/ NOTE: The 'capacity' value must align with your Azure OpenAI quota.
+// Default quota for GPT-4o is typically 90 (150,000 TPM / 900 RPM).
+// If you need higher capacity you must request a quota increase:
+//https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/quota?tabs=rest
 
-resource azureAIModel 'Microsoft.CognitiveServices/accounts/deployments@2024-04-01-preview' = {
+
+resource accounts_RHAILAIDev_name_rhaildevaimodel 'Microsoft.CognitiveServices/accounts/deployments@2024-04-01-preview' = {
   parent: openAI
-  name: accountAzureAIName
+  name: accounts_RHAILAIDev_name
   sku: {
     name: 'Standard'
-    capacity: 90 //140
+    capacity: 90
   }
   properties: {
     model: {
@@ -110,7 +116,7 @@ resource azureAIModel 'Microsoft.CognitiveServices/accounts/deployments@2024-04-
       version: '2024-05-13'
     }
     versionUpgradeOption: 'OnceCurrentVersionExpired'
-    currentCapacity: 140
+    //currentCapacity: 140
     raiPolicyName: 'Microsoft.Default'
   }
 }
