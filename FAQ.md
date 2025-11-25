@@ -69,6 +69,10 @@ Users have the capability to provide feedback on each claim and modify the queue
 
 Yes. Users have the capability to upload Medicare Advantage documentation to the Storage Account and subsequently re-run the indexes to ensure inclusion.
 
+**My Claims JSON is getting cut off. What should I do to fix this?**
+
+The default Max Token setting is too low for your run. To fix, go to the Parse 835 child flow and add the clause   "max_tokens": 16000
+
 ## **Security and Privacy**
 
 **How is my data protected?**
