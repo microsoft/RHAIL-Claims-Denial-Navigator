@@ -8,8 +8,42 @@ Before you begin, ensure you have the following:
 - Azure Resources created with the script found in azureresources folder
 - A SharePoint site made to the specifications found on the main README
 
-## Downloading the Claims Navigator App
-Download the zip file in this folder.
+## 📦 How to Clone and Pack the Power Apps Solution
+
+### ✅ 1. Clone the GitHub Repository
+```bash
+git clone https://github.com/microsoft/RHAIL-Claims-Denial-Navigator.git
+cd RHAIL-Claims-Denial-Navigator
+```
+
+---
+
+### ✅ 2. Install Power Platform CLI
+If you don’t have the CLI installed:
+```bash
+npm install -g @microsoft/powerplatform-cli
+```
+
+Verify installation:
+```bash
+pac --version
+```
+
+---
+
+### ✅ 3. Pack the Solution
+The unpacked solution files are already in this repo. To create a `.zip` file for import into Power Apps:
+
+```bash
+pac solution pack --folder ./Solution --zipfile ./ClaimsDenialNavigator.zip --packagetype Unmanaged
+```
+
+**Notes:**
+- `--folder` points to the folder containing the unpacked solution.
+- `--zipfile` is the output file name.
+- `--packagetype` can be `Unmanaged` or `Managed` depending on your need.
+
+---
 
 ## Import the Claims Navigator App
 
@@ -19,7 +53,7 @@ Download the zip file in this folder.
 
 3. In the menu on the left, select Solutions.
 
-4. Click Import Solution and select the Power App package ClaimsNavigator.zip
+4. Click Import Solution and select the Power App package ClaimsDenialNavigator.zip
 ![Claims Navigator Import](/assets/appuploadsolution.png)
 
 5. Click next until you reach Connections. Update the connections as needed until all 5 connections have a green check mark next to them.
