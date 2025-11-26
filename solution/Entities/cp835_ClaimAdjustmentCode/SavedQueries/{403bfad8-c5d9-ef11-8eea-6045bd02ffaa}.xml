@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{403bfad8-c5d9-ef11-8eea-6045bd02ffaa}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cp835_claimadjustmentreasoncode" select="1" icon="1" preview="1">
+        <row name="result" id="cp835_claimadjustmentcodeid">
+          <cell name="cp835_claimadjustmentreasoncode" width="100" />
+          <cell name="cp835_amount" width="100" />
+          <cell name="a_68fd2585922a4e319b1ef411b55255b3.cp835_servicelinecode" width="100" />
+          <cell name="cp835_recommendation" width="139" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical">
+        <entity name="cp835_claimadjustmentcode">&lt;attribute name="cp835_claimadjustmentreasoncode" /&gt;&lt;attribute name="cp835_amount" /&gt;&lt;attribute name="createdon" /&gt;&lt;attribute name="modifiedon" /&gt;&lt;attribute name="cp835_resolutionsteps" /&gt;<attribute name="cp835_claimadjustmentreasoncode" /><attribute name="cp835_amount" /><attribute name="cp835_claimadjustmentcodeid" /><link-entity alias="a_68fd2585922a4e319b1ef411b55255b3" name="cp835_serviceline" to="cp835_relatedserviceline" from="cp835_servicelineid" link-type="outer" visible="false"><attribute name="cp835_servicelinecode" /></link-entity><attribute name="cp835_recommendation" /><order attribute="cp835_claimadjustmentreasoncode" descending="false" /></entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="View Claim Adjustment Codes" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

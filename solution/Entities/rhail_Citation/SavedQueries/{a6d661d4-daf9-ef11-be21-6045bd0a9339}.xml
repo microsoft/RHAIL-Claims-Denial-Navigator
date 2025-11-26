@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{a6d661d4-daf9-ef11-be21-6045bd0a9339}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="rhail_title" select="1" icon="1" preview="1">
+        <row name="result" id="rhail_citationid">
+          <cell name="rhail_title" width="200" />
+          <cell name="createdon" width="200" />
+          <cell name="rhail_content" width="200" />
+          <cell name="a_b1ebc9e7a95d4bc4a676f868ff4af72e.cp835_recommendation" width="288" />
+          <cell name="rhail_claimadjustmentcode" width="177" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical">
+        <entity name="rhail_citation">&lt;attribute name="rhail_title" /&gt;&lt;attribute name="createdon" /&gt;&lt;attribute name="modifiedon" /&gt;&lt;attribute name="ownerid" /&gt;&lt;attribute name="rhail_content" /&gt;<attribute name="rhail_title" /><attribute name="createdon" /><attribute name="rhail_content" /><attribute name="rhail_citationid" /><order attribute="createdon" descending="true" /><link-entity alias="a_b1ebc9e7a95d4bc4a676f868ff4af72e" name="cp835_claimadjustmentcode" to="rhail_claimadjustmentcode" from="cp835_claimadjustmentcodeid" link-type="outer" visible="false"><attribute name="cp835_recommendation" /></link-entity><attribute name="rhail_claimadjustmentcode" /></entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.15.0.13</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Citation And Rec" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

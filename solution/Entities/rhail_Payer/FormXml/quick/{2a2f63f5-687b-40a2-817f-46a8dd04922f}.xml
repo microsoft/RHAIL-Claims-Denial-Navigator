@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{2a2f63f5-687b-40a2-817f-46a8dd04922f}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab verticallayout="true" id="{d8780d00-19bd-4b34-85e7-6ccfc332c239}" IsUserDefined="1">
+          <labels>
+            <label description="" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{2cd467b7-258f-4628-bda9-a07bd9976bac}">
+                  <labels>
+                    <label description="GENERAL" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{62ee5664-0c8d-4a07-9249-729ecb5b859f}">
+                        <labels>
+                          <label description="Payer Name" languagecode="1033" />
+                        </labels>
+                        <control id="rhail_payername" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="rhail_payername" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{28324d1f-f51d-41b2-a292-bfae1402c39e}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Street Address" languagecode="1033" />
+                        </labels>
+                        <control id="rhail_streetaddress" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="rhail_streetaddress" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{ffef23fb-8d2e-4cc9-8c5d-e531d3e2c11e}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="City" languagecode="1033" />
+                        </labels>
+                        <control id="rhail_city" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="rhail_city" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{70bc33bb-e4c4-407e-a71e-f2f92d0fa61c}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="State" languagecode="1033" />
+                        </labels>
+                        <control id="rhail_state" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="rhail_state" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{385111a9-6912-436d-b6a6-746df7939b73}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Postal Code" languagecode="1033" />
+                        </labels>
+                        <control id="rhail_postalcode" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="rhail_postalcode" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{cc20b978-19b7-44ea-9c44-9f0d247c113f}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+  </systemform>
+</forms>

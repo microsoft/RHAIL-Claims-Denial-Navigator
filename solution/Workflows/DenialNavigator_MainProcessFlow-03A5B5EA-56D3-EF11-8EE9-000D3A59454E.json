@@ -1,0 +1,2065 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_sharepointonline": {
+        "api": {
+          "name": "shared_sharepointonline"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedsharepointonline_9084f"
+        },
+        "runtimeSource": "embedded"
+      },
+      "shared_commondataserviceforapps": {
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_2bba6"
+        },
+        "runtimeSource": "embedded"
+      },
+      "shared_conversionservice": {
+        "api": {
+          "name": "shared_conversionservice"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedconversionservice_e15b5"
+        },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "Sharepoint Doc Site (rhail_SharepointDocSite)": {
+          "defaultValue": "https://microsoft.sharepoint.com/teams/RHAIL-DEV",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_SharepointDocSite",
+            "description": "The Sharepoint site that will ingest the 835 files."
+          }
+        },
+        "Sharepoint Library Name (rhail_SharepointLibraryName)": {
+          "defaultValue": "835 Files",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_SharepointLibraryName",
+            "description": "the library name where the 835 documents will be stores"
+          }
+        }
+      },
+      "triggers": {
+        "When_a_file_is_created_(properties_only)": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "@parameters('Sharepoint Doc Site (rhail_SharepointDocSite)')",
+              "table": "@parameters('Sharepoint Library Name (rhail_SharepointLibraryName)')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "GetOnNewFileItems",
+              "connectionName": "shared_sharepointonline"
+            }
+          },
+          "recurrence": {
+            "interval": 1,
+            "frequency": "Minute"
+          },
+          "runtimeConfiguration": {
+            "concurrency": {
+              "runs": 1,
+              "maximumWaitingRuns": 25
+            }
+          },
+          "splitOn": "@triggerOutputs()?['body/value']",
+          "metadata": {
+            "operationMetadataId": "d7a81fd4-a91a-4872-bb1d-b8b79cb4b7ff"
+          }
+        }
+      },
+      "actions": {
+        "Initialize_variable_Payer_GUID": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Payer GUID",
+                "type": "string"
+              }
+            ]
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "87a4c055-8bcf-477d-b927-cb0b49185e67"
+          }
+        },
+        "Initialize_variable_Status": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Status",
+                "type": "string",
+                "value": "In Progress"
+              }
+            ]
+          },
+          "runAfter": {
+            "Initialize_variable_Payer_Name": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "bf425f72-53c0-4128-9aff-d9fb5642edcb"
+          }
+        },
+        "Initialize_variable__837_JSON_": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "837 JSON",
+                "type": "string"
+              }
+            ]
+          },
+          "runAfter": {
+            "Initialize_variable_Status": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "f5314295-60fa-44d0-af0b-c65d074b9391"
+          }
+        },
+        "Initialize_variable_Claim_Response_GUID": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Claim Response GUID",
+                "type": "string"
+              }
+            ]
+          },
+          "runAfter": {
+            "Initialize_variable__837_JSON_": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "4ca6ca6d-f27f-4a53-8c5f-f1e159d04f54"
+          }
+        },
+        "Get_file_content": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "@parameters('Sharepoint Doc Site (rhail_SharepointDocSite)')",
+              "id": "@triggerBody()?['{Identifier}']",
+              "inferContentType": true
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "GetFileContent",
+              "connectionName": "shared_sharepointonline"
+            }
+          },
+          "runAfter": {
+            "Initialize_variable_FileType": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "5262f8fd-91d5-49b3-9765-c9ef3fb488c1"
+          }
+        },
+        "Initialize_variable_FileType": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "FileType",
+                "type": "string"
+              }
+            ]
+          },
+          "runAfter": {
+            "Initialize_variable_RARC_Codes": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "1c828215-367f-44ff-859f-f63e91349390"
+          }
+        },
+        "Set_variable_FileType": {
+          "type": "SetVariable",
+          "inputs": {
+            "name": "FileType",
+            "value": "@substring(outputs('File_Content'),add(indexOf(outputs('File_Content'),'ST*'),3),3)"
+          },
+          "runAfter": {
+            "File_Content": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "2d58acee-676e-4bde-a989-d30696fbb895"
+          }
+        },
+        "File_Content": {
+          "type": "Compose",
+          "inputs": "@body('Get_file_content')",
+          "runAfter": {
+            "Get_file_content": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "96dcfdab-6f54-473a-b0c4-420989775613"
+          }
+        },
+        "FileType": {
+          "type": "Switch",
+          "expression": "@variables('FileType')",
+          "default": {
+            "actions": {
+              "Terminate_File_Type": {
+                "type": "Terminate",
+                "inputs": {
+                  "runStatus": "Failed",
+                  "runError": {
+                    "code": "0",
+                    "message": "File type not found"
+                  }
+                },
+                "metadata": {
+                  "operationMetadataId": "656740d3-5ce5-4b9a-91b5-c89d0abc77aa"
+                }
+              }
+            }
+          },
+          "cases": {
+            "835": {
+              "actions": {
+                "Message": {
+                  "type": "Compose",
+                  "inputs": "835 file found",
+                  "metadata": {
+                    "operationMetadataId": "a28aa5bb-ac96-43a9-8248-cbf88d35c5db"
+                  }
+                },
+                "Try-Parse_Header": {
+                  "type": "Scope",
+                  "actions": {
+                    "Find_Index_of_ST*": {
+                      "type": "Compose",
+                      "inputs": "@indexOf(outputs('File_Content'), 'ST*')",
+                      "metadata": {
+                        "operationMetadataId": "872ed769-b0cd-4452-8658-c893d9d76fcf"
+                      }
+                    },
+                    "Find_Index_of_N1*PE": {
+                      "type": "Compose",
+                      "inputs": "@indexOf(outputs('File_Content'), 'N1*PE')",
+                      "runAfter": {
+                        "Find_Index_of_ST*": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "2890c684-c7e8-443e-8a9a-d18881e361ae"
+                      }
+                    },
+                    "Compose_Header": {
+                      "type": "Compose",
+                      "inputs": "@substring(outputs('File_Content'), outputs('Find_Index_of_ST*'), sub(outputs('Find_Index_of_N1*PE'),  outputs('Find_Index_of_ST*')))",
+                      "runAfter": {
+                        "Find_Index_of_N1*PE": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "c441018a-1b2a-4ee5-8e53-19c84463a64b"
+                      }
+                    },
+                    "Header_JSON_Example": {
+                      "type": "Compose",
+                      "inputs": {
+                        "835Header": {
+                          "BPR": {
+                            "Transaction Handling Code": "BPR01",
+                            "Total Actual Provider Payment Amount": "BPR02",
+                            "Credit or Debit Flag Code": "BPR03",
+                            "Payment Method Code": "BPR04",
+                            "Payment Date": "BPR16"
+                          },
+                          "TRN": {
+                            "Trace Type Code": "TRN01",
+                            "Check or EFT Trace Number": "TRN02",
+                            "Payer Identifier": "TRN03"
+                          },
+                          "Loop 1000A Payer": {
+                            "EntityCode": "PR",
+                            "Name": "N102",
+                            "Address1": "N301",
+                            "Address2": "N302",
+                            "City": "N401",
+                            "State": "N402",
+                            "Zip": "N403"
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "Compose_Header": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "29bd9f93-2451-4371-bb01-03f77fe66a81"
+                      }
+                    },
+                    "Parse_835_Header": {
+                      "type": "Workflow",
+                      "inputs": {
+                        "host": {
+                          "workflowReferenceName": "7aedf67a-85d3-ef11-8eea-6045bd0a70c7"
+                        },
+                        "body": {
+                          "text": "@outputs('Compose_Header')",
+                          "text_1": "'@{outputs('Header_JSON_Example')}'",
+                          "text_2": "@variables('FileType')",
+                          "text_3": "@triggerBody()?['{FilenameWithExtension}']"
+                        }
+                      },
+                      "runAfter": {
+                        "Header_JSON_Example": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "dbee176f-212d-4988-9886-3551a04aa8ab"
+                      }
+                    },
+                    "Set_PayerGUID": {
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "Payer GUID",
+                        "value": "@body('Parse_835_Header')?['payer_guid']"
+                      },
+                      "runAfter": {
+                        "Parse_835_Header": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "cca34cf5-c0c6-4e2b-9ef8-b40dd920c339"
+                      }
+                    },
+                    "Set_File_GUID": {
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "File GUID",
+                        "value": "@body('Parse_835_Header')?['file_guid']"
+                      },
+                      "runAfter": {
+                        "Set_PayerGUID": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "138441b2-5cf7-4e6f-b2b5-44203953144c"
+                      }
+                    },
+                    "Set_Payer_Name": {
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "Payer Name",
+                        "value": "@body('Parse_835_Header')?['payer_name']"
+                      },
+                      "runAfter": {
+                        "Set_File_GUID": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "8a61a6e3-5cfe-4bc2-950c-5643e52f44fe"
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Message": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "587ea450-0afb-478b-af86-35f0c17ee7a9"
+                  }
+                },
+                "Try-_For_Each_Claim": {
+                  "type": "Scope",
+                  "actions": {
+                    "Split_Claims": {
+                      "type": "Compose",
+                      "inputs": "@split(outputs('File_Content'), 'CLP*')",
+                      "metadata": {
+                        "operationMetadataId": "0e71cb73-ae8b-46f4-9222-0771ce0bc0f1"
+                      }
+                    },
+                    "Filter_Claims": {
+                      "type": "Query",
+                      "inputs": {
+                        "from": "@outputs('Split_Claims')",
+                        "where": "@not(contains(item(), 'ISA*00* '))"
+                      },
+                      "runAfter": {
+                        "Split_Claims": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "950afb06-06e3-4ef0-8658-022e044adc85"
+                      }
+                    },
+                    "For_Each_Claim": {
+                      "type": "Foreach",
+                      "foreach": "@body('Filter_Claims')",
+                      "actions": {
+                        "Claim": {
+                          "type": "Compose",
+                          "inputs": "@items('For_Each_Claim')",
+                          "metadata": {
+                            "operationMetadataId": "48644849-a8e3-49cb-ad98-9f8f1cfe208e"
+                          }
+                        },
+                        "Parse_835_Claims": {
+                          "type": "Workflow",
+                          "inputs": {
+                            "host": {
+                              "workflowReferenceName": "5c5a4fe6-31d4-ef11-8eea-6045bd0804f0"
+                            },
+                            "body": {
+                              "text": "@outputs('Claim')",
+                              "text_1": "@variables('File GUID')"
+                            }
+                          },
+                          "runAfter": {
+                            "Claim": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "fbf7ee41-2322-4156-82da-2694c2933203"
+                          }
+                        },
+                        "Claim_JSON": {
+                          "type": "Compose",
+                          "inputs": "@body('Parse_835_Claims')?['parsedclaim']",
+                          "runAfter": {
+                            "Parse_835_Claims": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "f576fc4b-c8c0-4fd9-b9b8-f9201bc8726f"
+                          }
+                        },
+                        "Parse_JSON": {
+                          "type": "ParseJson",
+                          "inputs": {
+                            "content": "@outputs('Claim_JSON')",
+                            "schema": {
+                              "type": "object",
+                              "properties": {
+                                "Claim": {
+                                  "type": "object",
+                                  "properties": {
+                                    "claimId": {
+                                      "type": "string"
+                                    },
+                                    "totalCost": {
+                                      "type": "number"
+                                    },
+                                    "totalPaid": {
+                                      "type": "number"
+                                    },
+                                    "deductible": {
+                                      "type": "number"
+                                    },
+                                    "claimICN": {
+                                      "type": "string"
+                                    },
+                                    "patientFirstName": {
+                                      "type": "string"
+                                    },
+                                    "patientLastName": {
+                                      "type": "string"
+                                    },
+                                    "patientId": {
+                                      "type": "string"
+                                    },
+                                    "rarc": {
+                                      "type": "array"
+                                    },
+                                    "claimDate": {
+                                      "type": "string"
+                                    },
+                                    "serviceLines": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "serviceCode": {
+                                            "type": "string"
+                                          },
+                                          "chargeAmount": {
+                                            "type": "number"
+                                          },
+                                          "paidAmount": {
+                                            "type": "number"
+                                          },
+                                          "cas": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "object",
+                                              "properties": {
+                                                "groupCode": {
+                                                  "type": "string"
+                                                },
+                                                "carc": {
+                                                  "type": "string"
+                                                },
+                                                "amount": {
+                                                  "type": "number"
+                                                }
+                                              },
+                                              "required": [
+                                                "groupCode",
+                                                "carc",
+                                                "amount"
+                                              ]
+                                            }
+                                          }
+                                        },
+                                        "required": [
+                                          "serviceCode",
+                                          "chargeAmount",
+                                          "paidAmount",
+                                          "cas"
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "runAfter": {
+                            "Claim_JSON": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "59f648da-02d7-4339-81a5-f1f6440ec2c3"
+                          }
+                        },
+                        "Reset_RARC": {
+                          "type": "SetVariable",
+                          "inputs": {
+                            "name": "RARC Codes",
+                            "value": " "
+                          },
+                          "runAfter": {
+                            "If_Claim_Has_Patient": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "969367f9-3694-4335-b3e1-64a73be647c3"
+                          }
+                        },
+                        "If_Claim_Has_Patient": {
+                          "type": "If",
+                          "expression": {
+                            "greater": [
+                              "@outputs('Compose_PatientID_Length')",
+                              0
+                            ]
+                          },
+                          "actions": {
+                            "List_837_Claims": {
+                              "type": "OpenApiConnection",
+                              "inputs": {
+                                "parameters": {
+                                  "entityName": "rhail_claims",
+                                  "$filter": "rhail_claim eq '@{body('Parse_JSON')?['Claim']?['claimId']}'"
+                                },
+                                "host": {
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                  "operationId": "ListRecords",
+                                  "connectionName": "shared_commondataserviceforapps"
+                                }
+                              },
+                              "metadata": {
+                                "operationMetadataId": "42f83e68-ea73-46c5-94b7-bdb0b21f649c"
+                              }
+                            },
+                            "837_Claim_": {
+                              "type": "Compose",
+                              "inputs": "@if(equals(length(outputs('List_837_Claims')?['body/value']), 0), 'N/A', 'Yes')",
+                              "runAfter": {
+                                "List_837_Claims": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "metadata": {
+                                "operationMetadataId": "42c54dcb-7527-40f2-a3c2-6d95d4ee9f43"
+                              }
+                            },
+                            "If_No_837": {
+                              "type": "If",
+                              "expression": {
+                                "and": [
+                                  {
+                                    "equals": [
+                                      "@outputs('837_Claim_')",
+                                      "N/A"
+                                    ]
+                                  }
+                                ]
+                              },
+                              "actions": {
+                                "Add_New_Claim_Response_-_No_837": {
+                                  "type": "OpenApiConnection",
+                                  "inputs": {
+                                    "parameters": {
+                                      "entityName": "cp835_claimresponses",
+                                      "item/cp835_claimid": "@body('Parse_JSON')?['claim']?['claimId']",
+                                      "item/cp835_claimdate": "@if(empty(string(body('Parse_JSON')?['claim']?['claimDate'])), formatDateTime(utcNow(), 'MM/dd/yyyy'), body('Parse_JSON')?['claim']?['claimDate'])",
+                                      "item/cp835_claimicn": "@body('Parse_JSON')?['claim']?['claimICN']",
+                                      "item/cp835_claimstatus": 646370000,
+                                      "item/cp835_claimtotal": "@if(empty(string(body('Parse_JSON')?['Claim']?['totalCost'])), 0.00, body('Parse_JSON')?['Claim']?['totalCost'])",
+                                      "item/cp835_deductible": "@if(empty(string(body('Parse_JSON')?['Claim']?['deductible'])), 0.00, body('Parse_JSON')?['Claim']?['deductible'])",
+                                      "item/cp835_File@odata.bind": "/cr1a1_processedfiles(@{variables('File GUID')})",
+                                      "item/cp835_jsonresponse": "@outputs('Claim_JSON')",
+                                      "item/cp835_patientid": "@body('Parse_JSON')?['claim']?['patientId']",
+                                      "item/cp835_patientname": "@{body('Parse_JSON')?['claim']?['patientFirstName']} @{body('Parse_JSON')?['claim']?['patientLastName']}",
+                                      "item/cp835_Payer@odata.bind": "/rhail_payers(@{variables('Payer GUID')})",
+                                      "item/cp835_totalpaid": "@if(empty(string(body('Parse_JSON')?['Claim']?['totalPaid'])), 0.00, body('Parse_JSON')?['Claim']?['totalPaid'])"
+                                    },
+                                    "host": {
+                                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                      "operationId": "CreateRecord",
+                                      "connectionName": "shared_commondataserviceforapps"
+                                    }
+                                  },
+                                  "metadata": {
+                                    "operationMetadataId": "0e41e9b2-3b35-4e6e-b968-e2da5aa61fba"
+                                  }
+                                },
+                                "Set_variable_ClaimResponse_Guid": {
+                                  "type": "SetVariable",
+                                  "inputs": {
+                                    "name": "Claim Response GUID",
+                                    "value": "@outputs('Add_New_Claim_Response_-_No_837')?['body/cp835_claimresponseid']"
+                                  },
+                                  "runAfter": {
+                                    "Add_New_Claim_Response_-_No_837": [
+                                      "Succeeded"
+                                    ]
+                                  },
+                                  "metadata": {
+                                    "operationMetadataId": "62cca604-7a4d-4bd8-8e77-433569a8036d"
+                                  }
+                                }
+                              },
+                              "else": {
+                                "actions": {
+                                  "For_each": {
+                                    "type": "Foreach",
+                                    "foreach": "@outputs('List_837_Claims')?['body/value']",
+                                    "actions": {
+                                      "Add_New_Claim_Response_-_With_837": {
+                                        "type": "OpenApiConnection",
+                                        "inputs": {
+                                          "parameters": {
+                                            "entityName": "cp835_claimresponses",
+                                            "item/cp835_claimid": "@body('Parse_JSON')?['claim']?['claimId']",
+                                            "item/cp835_Claim@odata.bind": "/rhail_claims(@{items('For_each')?['rhail_claimid']})",
+                                            "item/cp835_claimdate": "@body('Parse_JSON')?['Claim']?['claimDate']",
+                                            "item/cp835_claimicn": "@body('Parse_JSON')?['Claim']?['claimICN']",
+                                            "item/cp835_claimstatus": 646370000,
+                                            "item/cp835_claimtotal": "@if(empty(string(body('Parse_JSON')?['Claim']?['totalCost'])), 0.00, body('Parse_JSON')?['Claim']?['totalCost'])",
+                                            "item/cp835_deductible": "@if(empty(string(body('Parse_JSON')?['Claim']?['deductible'])), 0.00, body('Parse_JSON')?['Claim']?['deductible'])",
+                                            "item/cp835_File@odata.bind": "/cr1a1_processedfiles(@{variables('File GUID')})",
+                                            "item/cp835_jsonresponse": "@outputs('Claim_JSON')",
+                                            "item/cp835_patientid": "@body('Parse_JSON')?['Claim']?['patientId']",
+                                            "item/cp835_patientname": "@{body('Parse_JSON')?['claim']?['patientFirstName']} @{body('Parse_JSON')?['claim']?['patientLastName']}",
+                                            "item/cp835_Payer@odata.bind": "/rhail_payers(@{variables('Payer GUID')})",
+                                            "item/cp835_totalpaid": "@if(empty(string(body('Parse_JSON')?['Claim']?['totalPaid'])), 0.00, body('Parse_JSON')?['Claim']?['totalPaid'])"
+                                          },
+                                          "host": {
+                                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                            "operationId": "CreateRecord",
+                                            "connectionName": "shared_commondataserviceforapps"
+                                          }
+                                        },
+                                        "metadata": {
+                                          "operationMetadataId": "88570336-0d1f-4d3b-a867-7ec4a59c60bf"
+                                        }
+                                      },
+                                      "Set_variable_ClaimResponse_GUID_w_837": {
+                                        "type": "SetVariable",
+                                        "inputs": {
+                                          "name": "Claim Response GUID",
+                                          "value": "@outputs('Add_New_Claim_Response_-_With_837')?['body/cp835_claimresponseid']"
+                                        },
+                                        "runAfter": {
+                                          "Add_New_Claim_Response_-_With_837": [
+                                            "Succeeded"
+                                          ]
+                                        },
+                                        "metadata": {
+                                          "operationMetadataId": "05ddb083-3f57-4b12-8e45-4001f27ecd10"
+                                        }
+                                      }
+                                    },
+                                    "metadata": {
+                                      "operationMetadataId": "a69d3255-bc13-471f-9fdc-8804219c60f7"
+                                    }
+                                  }
+                                }
+                              },
+                              "runAfter": {
+                                "837_Claim_": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "metadata": {
+                                "operationMetadataId": "ee56a5d7-90a6-45eb-af6f-12bbd47e2f7a"
+                              }
+                            },
+                            "Update_File_Processing_Row": {
+                              "type": "OpenApiConnection",
+                              "inputs": {
+                                "parameters": {
+                                  "entityName": "cr1a1_processedfiles",
+                                  "recordId": "@variables('File GUID')",
+                                  "item/cr1a1_processedstatus": "Parsed Claim @{body('Parse_JSON')?['Claim']?['claimId']}"
+                                },
+                                "host": {
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                  "operationId": "UpdateOnlyRecord",
+                                  "connectionName": "shared_commondataserviceforapps"
+                                }
+                              },
+                              "runAfter": {
+                                "If_No_837": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "metadata": {
+                                "operationMetadataId": "89ce32c7-7d95-455f-bd4d-cfdd3f8382b3"
+                              }
+                            },
+                            "If_RARC_Present": {
+                              "type": "If",
+                              "description": "rarc codes are at least 2 chars . if length less than 2 then skip",
+                              "expression": {
+                                "and": [
+                                  {
+                                    "greaterOrEquals": [
+                                      "@length(body('Parse_JSON')?['Claim']?['rarc'])",
+                                      1
+                                    ]
+                                  }
+                                ]
+                              },
+                              "actions": {
+                                "For_Each_RARC": {
+                                  "type": "Foreach",
+                                  "foreach": "@body('Parse_JSON')?['Claim']?['rarc']",
+                                  "actions": {
+                                    "Compose_RARC_Code": {
+                                      "type": "Compose",
+                                      "inputs": "@item()",
+                                      "metadata": {
+                                        "operationMetadataId": "7f0aaad2-5c67-4895-944a-fa15050f95b2"
+                                      }
+                                    },
+                                    "If_Actual_RARC_Code": {
+                                      "type": "If",
+                                      "description": "rarc code always 2 + char, if not 2 char, then skip",
+                                      "expression": {
+                                        "greater": [
+                                          "@length(outputs('Compose_RARC_Code'))",
+                                          1
+                                        ]
+                                      },
+                                      "actions": {
+                                        "Get_RARC_Code_Def": {
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "parameters": {
+                                              "entityName": "rhail_codedefinitions",
+                                              "$filter": "rhail_code eq '@{outputs('Compose_RARC_Code')}'"
+                                            },
+                                            "host": {
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                              "operationId": "ListRecords",
+                                              "connectionName": "shared_commondataserviceforapps"
+                                            }
+                                          },
+                                          "metadata": {
+                                            "operationMetadataId": "173ade32-cf5e-4e30-8706-5c9332ba7f58"
+                                          }
+                                        },
+                                        "Add__New_RARC_Code": {
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "parameters": {
+                                              "entityName": "cp835_reasoncodes",
+                                              "item/cp835_rarccode": "@outputs('Compose_RARC_Code')",
+                                              "item/cp835_DefinitionLookup@odata.bind": "/rhail_codedefinitions(@{first(outputs('Get_RARC_Code_Def')?['body/value'])?['rhail_codedefinitionid']})",
+                                              "item/cp835_RelatedClaim@odata.bind": "/cp835_claimresponses(@{variables('Claim Response GUID')})"
+                                            },
+                                            "host": {
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                              "operationId": "CreateRecord",
+                                              "connectionName": "shared_commondataserviceforapps"
+                                            }
+                                          },
+                                          "runAfter": {
+                                            "Get_RARC_Code_Def": [
+                                              "Succeeded"
+                                            ]
+                                          },
+                                          "metadata": {
+                                            "operationMetadataId": "c79c076b-98ac-4c63-ad7c-13b63a6c2e4b"
+                                          }
+                                        },
+                                        "Append_to_RARC_Codes": {
+                                          "type": "AppendToStringVariable",
+                                          "inputs": {
+                                            "name": "RARC Codes",
+                                            "value": "@{outputs('Compose_RARC_Code')}-@{first(outputs('Get_RARC_Code_Def')?['body/value'])?['rhail_definition']} ;"
+                                          },
+                                          "runAfter": {
+                                            "Add__New_RARC_Code": [
+                                              "Succeeded"
+                                            ]
+                                          },
+                                          "metadata": {
+                                            "operationMetadataId": "6319df88-3385-426a-99b8-751d39ef065a"
+                                          }
+                                        }
+                                      },
+                                      "else": {
+                                        "actions": {}
+                                      },
+                                      "runAfter": {
+                                        "Compose_RARC_Code": [
+                                          "Succeeded"
+                                        ]
+                                      },
+                                      "metadata": {
+                                        "operationMetadataId": "10567358-5c88-4020-9950-005d83d7ed23"
+                                      }
+                                    }
+                                  },
+                                  "metadata": {
+                                    "operationMetadataId": "336e0fc8-15d8-474e-b7da-3993e11cd4cb"
+                                  }
+                                }
+                              },
+                              "else": {
+                                "actions": {}
+                              },
+                              "runAfter": {
+                                "Compose": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "metadata": {
+                                "operationMetadataId": "023cbb04-a368-4bcf-abec-a67efddd4508"
+                              }
+                            },
+                            "For_Each_Service_Line": {
+                              "type": "Foreach",
+                              "foreach": "@body('Parse_JSON')?['Claim']?['serviceLines']",
+                              "actions": {
+                                "SVC_Line": {
+                                  "type": "Compose",
+                                  "inputs": "@items('For_Each_Service_Line')",
+                                  "metadata": {
+                                    "operationMetadataId": "4af9fbc7-dc2f-4076-b6b9-4db5a166b11b"
+                                  }
+                                },
+                                "SVC_Code_Length": {
+                                  "type": "Compose",
+                                  "description": "Check if there is a service code in the JSON",
+                                  "inputs": "@if(empty(item()?['serviceCode']), 0, length(item()?['serviceCode']))",
+                                  "runAfter": {
+                                    "SVC_Line": [
+                                      "Succeeded"
+                                    ]
+                                  },
+                                  "metadata": {
+                                    "operationMetadataId": "bd8abd30-98d1-413a-b644-550c18849508"
+                                  }
+                                },
+                                "If_Service_Code_Exists": {
+                                  "type": "If",
+                                  "expression": {
+                                    "and": [
+                                      {
+                                        "greater": [
+                                          "@outputs('SVC_Code_Length')",
+                                          0
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "actions": {
+                                    "Add_a_new_row_Service_Line": {
+                                      "type": "OpenApiConnection",
+                                      "inputs": {
+                                        "parameters": {
+                                          "entityName": "cp835_servicelines",
+                                          "item/cp835_servicelinecode": "@items('For_Each_Service_Line')['serviceCode']",
+                                          "item/cp835_chargeamount": "@items('For_Each_Service_Line')['chargeAmount']",
+                                          "item/cp835_paidamount": "@item()['paidAmount']",
+                                          "item/cp835_RelatedClaimResponse@odata.bind": "/cp835_claimresponses(@{variables('Claim Response GUID')})"
+                                        },
+                                        "host": {
+                                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                          "operationId": "CreateRecord",
+                                          "connectionName": "shared_commondataserviceforapps"
+                                        }
+                                      },
+                                      "metadata": {
+                                        "operationMetadataId": "ed0f9265-e03f-4629-bf4c-79ddf9f352da"
+                                      }
+                                    },
+                                    "Set_variable_Service_Line_GUID": {
+                                      "type": "SetVariable",
+                                      "inputs": {
+                                        "name": "Service Line GUID",
+                                        "value": "@outputs('Add_a_new_row_Service_Line')?['body/cp835_servicelineid']"
+                                      },
+                                      "runAfter": {
+                                        "Add_a_new_row_Service_Line": [
+                                          "Succeeded"
+                                        ]
+                                      },
+                                      "metadata": {
+                                        "operationMetadataId": "fe64c0c8-bf21-4e46-ae2d-cf4c29b8e227"
+                                      }
+                                    },
+                                    "For_Each_CAS": {
+                                      "type": "Foreach",
+                                      "foreach": "@item()?['cas']",
+                                      "actions": {
+                                        "Compose_CARC": {
+                                          "type": "Compose",
+                                          "inputs": "@item()?['carc']",
+                                          "metadata": {
+                                            "operationMetadataId": "fd67abef-aa05-4a0b-a255-06f89808695f"
+                                          }
+                                        },
+                                        "Get_CARC_def": {
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "parameters": {
+                                              "entityName": "rhail_codedefinitions",
+                                              "$filter": "rhail_code eq '@{outputs('Compose_CARC')}'"
+                                            },
+                                            "host": {
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                              "operationId": "ListRecords",
+                                              "connectionName": "shared_commondataserviceforapps"
+                                            }
+                                          },
+                                          "runAfter": {
+                                            "Compose_CARC": [
+                                              "Succeeded"
+                                            ]
+                                          },
+                                          "metadata": {
+                                            "operationMetadataId": "8bb9a0f1-723d-475f-8c59-d04c21d0d031"
+                                          }
+                                        },
+                                        "Compose_CARC_for_Rec": {
+                                          "type": "Compose",
+                                          "inputs": "@{item()['groupCode']}-@{outputs('Compose_CARC')}:@{first(outputs('Get_CARC_def')?['body/value'])?['rhail_definition']}",
+                                          "runAfter": {
+                                            "Get_CARC_def": [
+                                              "Succeeded"
+                                            ]
+                                          },
+                                          "metadata": {
+                                            "operationMetadataId": "bea09734-6d9f-4f4c-ab50-c26f7bbb15db"
+                                          }
+                                        },
+                                        "Run_a_Child_Flow_Get_Rec": {
+                                          "type": "Workflow",
+                                          "inputs": {
+                                            "host": {
+                                              "workflowReferenceName": "919f8649-22d8-ef11-8eea-002248041160"
+                                            },
+                                            "body": {
+                                              "text": "@outputs('Compose_CARC_for_Rec')",
+                                              "text_1": "@variables('RARC Codes')",
+                                              "text_2": "@variables('Payer Name')",
+                                              "text_3": "@variables('File GUID')"
+                                            }
+                                          },
+                                          "runAfter": {
+                                            "Compose_CARC_for_Rec": [
+                                              "Succeeded"
+                                            ]
+                                          },
+                                          "metadata": {
+                                            "operationMetadataId": "caa6e147-aac8-4103-a2f2-d41cb5bdf388"
+                                          }
+                                        },
+                                        "Compose_HTML_Response": {
+                                          "type": "Compose",
+                                          "inputs": "@body('Run_a_Child_Flow_Get_Rec')?['html']",
+                                          "runAfter": {
+                                            "Run_a_Child_Flow_Get_Rec": [
+                                              "Succeeded"
+                                            ]
+                                          },
+                                          "metadata": {
+                                            "operationMetadataId": "511ff2b1-465f-4e59-afcc-151208e3d9fd"
+                                          }
+                                        },
+                                        "Html_to_text": {
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "parameters": {
+                                              "Content": "<p class=\"editor-paragraph\">@{outputs('Compose_HTML_Response')}</p>"
+                                            },
+                                            "host": {
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_conversionservice",
+                                              "operationId": "HtmlToText",
+                                              "connectionName": "shared_conversionservice"
+                                            }
+                                          },
+                                          "runAfter": {
+                                            "Compose_HTML_Response": [
+                                              "Succeeded"
+                                            ]
+                                          },
+                                          "metadata": {
+                                            "operationMetadataId": "cef481ec-a70a-45bb-b71d-f8e54f431538"
+                                          }
+                                        },
+                                        "Add_New_Claim_Adjustment_Code": {
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "parameters": {
+                                              "entityName": "cp835_claimadjustmentcodes",
+                                              "item/cp835_claimadjustmentreasoncode": "@{item()['groupCode']}-@{outputs('Compose_CARC')}",
+                                              "item/cp835_amount": "@item()?['amount']",
+                                              "item/cr1a1_DefinitionLookup@odata.bind": "/rhail_codedefinitions(@{first(outputs('Get_CARC_def')?['body/value'])?['rhail_codedefinitionid']})",
+                                              "item/cp835_recommendation": "@body('Html_to_text')",
+                                              "item/cp835_recommendationhtml": "@outputs('Compose_HTML_Response')",
+                                              "item/cp835_RelatedClaimResponse@odata.bind": "/cp835_claimresponses(@{variables('Claim Response GUID')})",
+                                              "item/cp835_RelatedServiceLine@odata.bind": "/cp835_servicelines(@{variables('Service Line GUID')})"
+                                            },
+                                            "host": {
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                              "operationId": "CreateRecord",
+                                              "connectionName": "shared_commondataserviceforapps"
+                                            }
+                                          },
+                                          "runAfter": {
+                                            "Html_to_text": [
+                                              "Succeeded"
+                                            ]
+                                          },
+                                          "metadata": {
+                                            "operationMetadataId": "a3c8c55e-bc4a-417f-861e-a750dc0077a9"
+                                          }
+                                        },
+                                        "Parse_JSON_Citations": {
+                                          "type": "ParseJson",
+                                          "inputs": {
+                                            "content": "@body('Run_a_Child_Flow_Get_Rec')?['citations']",
+                                            "schema": {
+                                              "type": "array",
+                                              "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "content": {
+                                                    "type": "string"
+                                                  },
+                                                  "title": {
+                                                    "type": "string"
+                                                  },
+                                                  "url": {},
+                                                  "filepath": {
+                                                    "type": "string"
+                                                  },
+                                                  "chunk_id": {
+                                                    "type": "string"
+                                                  }
+                                                },
+                                                "required": [
+                                                  "content",
+                                                  "title",
+                                                  "url",
+                                                  "filepath",
+                                                  "chunk_id"
+                                                ]
+                                              }
+                                            }
+                                          },
+                                          "runAfter": {
+                                            "Add_New_Claim_Adjustment_Code": [
+                                              "Succeeded"
+                                            ]
+                                          },
+                                          "metadata": {
+                                            "operationMetadataId": "85bd4557-da8e-4b90-905a-934a985f13b4"
+                                          }
+                                        },
+                                        "Apply_to_each_Citation": {
+                                          "type": "Foreach",
+                                          "foreach": "@body('Parse_JSON_Citations')",
+                                          "actions": {
+                                            "Add_a_new_row_Citation": {
+                                              "type": "OpenApiConnection",
+                                              "inputs": {
+                                                "parameters": {
+                                                  "entityName": "rhail_citations",
+                                                  "item/rhail_title": "@item()['title']",
+                                                  "item/rhail_ClaimAdjustmentCode@odata.bind": "/cp835_claimadjustmentcodes(@{outputs('Add_New_Claim_Adjustment_Code')?['body/cp835_claimadjustmentcodeid']})",
+                                                  "item/rhail_content": "@item()['content']",
+                                                  "item/rhail_file": "@item()['title']"
+                                                },
+                                                "host": {
+                                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                                  "operationId": "CreateRecord",
+                                                  "connectionName": "shared_commondataserviceforapps"
+                                                }
+                                              },
+                                              "metadata": {
+                                                "operationMetadataId": "14bffd7c-c79e-4572-babb-17d9969fb487"
+                                              }
+                                            }
+                                          },
+                                          "runAfter": {
+                                            "Parse_JSON_Citations": [
+                                              "Succeeded"
+                                            ]
+                                          },
+                                          "metadata": {
+                                            "operationMetadataId": "9e3fa7d9-11b6-418f-a6de-7aadf1567b0c"
+                                          }
+                                        }
+                                      },
+                                      "runAfter": {
+                                        "Set_variable_Service_Line_GUID": [
+                                          "Succeeded"
+                                        ]
+                                      },
+                                      "metadata": {
+                                        "operationMetadataId": "f674cf21-af89-4daf-8a8f-969cffdda23f"
+                                      }
+                                    }
+                                  },
+                                  "else": {
+                                    "actions": {
+                                      "For_Each_CAS_No_Service_Lines": {
+                                        "type": "Foreach",
+                                        "foreach": "@item()?['cas']",
+                                        "actions": {
+                                          "Compose_CARC_2": {
+                                            "type": "Compose",
+                                            "inputs": "@items('For_Each_CAS_No_Service_Lines')?['carc']",
+                                            "metadata": {
+                                              "operationMetadataId": "fd67abef-aa05-4a0b-a255-06f89808695f"
+                                            }
+                                          },
+                                          "Get_CARC_def_2": {
+                                            "type": "OpenApiConnection",
+                                            "inputs": {
+                                              "parameters": {
+                                                "entityName": "rhail_codedefinitions",
+                                                "$filter": "rhail_code eq '@{outputs('Compose_CARC_2')}'"
+                                              },
+                                              "host": {
+                                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                                "operationId": "ListRecords",
+                                                "connectionName": "shared_commondataserviceforapps"
+                                              }
+                                            },
+                                            "runAfter": {
+                                              "Compose_CARC_2": [
+                                                "Succeeded"
+                                              ]
+                                            },
+                                            "metadata": {
+                                              "operationMetadataId": "8bb9a0f1-723d-475f-8c59-d04c21d0d031"
+                                            }
+                                          },
+                                          "Compose_CARC_for_Rec_2": {
+                                            "type": "Compose",
+                                            "inputs": "@{items('For_Each_CAS_No_Service_Lines')['groupCode']}-@{outputs('Compose_CARC_2')}:@{first(outputs('Get_CARC_def_2')?['body/value'])?['rhail_definition']}",
+                                            "runAfter": {
+                                              "Get_CARC_def_2": [
+                                                "Succeeded"
+                                              ]
+                                            },
+                                            "metadata": {
+                                              "operationMetadataId": "bea09734-6d9f-4f4c-ab50-c26f7bbb15db"
+                                            }
+                                          },
+                                          "Run_a_Child_Flow_Get_Rec_2": {
+                                            "type": "Workflow",
+                                            "inputs": {
+                                              "host": {
+                                                "workflowReferenceName": "919f8649-22d8-ef11-8eea-002248041160"
+                                              },
+                                              "body": {
+                                                "text": "@outputs('Compose_CARC_for_Rec_2')",
+                                                "text_1": "@variables('RARC Codes')",
+                                                "text_2": "@variables('Payer Name')",
+                                                "text_3": "@variables('File GUID')"
+                                              }
+                                            },
+                                            "runAfter": {
+                                              "Compose_CARC_for_Rec_2": [
+                                                "Succeeded"
+                                              ]
+                                            },
+                                            "metadata": {
+                                              "operationMetadataId": "caa6e147-aac8-4103-a2f2-d41cb5bdf388"
+                                            }
+                                          },
+                                          "Compose_HTML_Response_2": {
+                                            "type": "Compose",
+                                            "inputs": "@body('Run_a_Child_Flow_Get_Rec_2')?['html']",
+                                            "runAfter": {
+                                              "Run_a_Child_Flow_Get_Rec_2": [
+                                                "Succeeded"
+                                              ]
+                                            },
+                                            "metadata": {
+                                              "operationMetadataId": "511ff2b1-465f-4e59-afcc-151208e3d9fd"
+                                            }
+                                          },
+                                          "Html_to_text_2": {
+                                            "type": "OpenApiConnection",
+                                            "inputs": {
+                                              "parameters": {
+                                                "Content": "<p class=\"editor-paragraph\">@{outputs('Compose_HTML_Response_2')}</p>"
+                                              },
+                                              "host": {
+                                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_conversionservice",
+                                                "operationId": "HtmlToText",
+                                                "connectionName": "shared_conversionservice"
+                                              }
+                                            },
+                                            "runAfter": {
+                                              "Compose_HTML_Response_2": [
+                                                "Succeeded"
+                                              ]
+                                            },
+                                            "metadata": {
+                                              "operationMetadataId": "cef481ec-a70a-45bb-b71d-f8e54f431538"
+                                            }
+                                          },
+                                          "Add_New_Claim_Adjustment_Code_2": {
+                                            "type": "OpenApiConnection",
+                                            "inputs": {
+                                              "parameters": {
+                                                "entityName": "cp835_claimadjustmentcodes",
+                                                "item/cp835_claimadjustmentreasoncode": "@{items('For_Each_CAS_No_Service_Lines')['groupCode']}-@{outputs('Compose_CARC_2')}",
+                                                "item/cp835_amount": "@items('For_Each_CAS_No_Service_Lines')?['amount']",
+                                                "item/cr1a1_DefinitionLookup@odata.bind": "/rhail_codedefinitions(@{first(outputs('Get_CARC_def_2')?['body/value'])?['rhail_codedefinitionid']})",
+                                                "item/cp835_recommendation": "@body('Html_to_text_2')",
+                                                "item/cp835_recommendationhtml": "@outputs('Compose_HTML_Response_2')",
+                                                "item/cp835_RelatedClaimResponse@odata.bind": "/cp835_claimresponses(@{variables('Claim Response GUID')})"
+                                              },
+                                              "host": {
+                                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                                "operationId": "CreateRecord",
+                                                "connectionName": "shared_commondataserviceforapps"
+                                              }
+                                            },
+                                            "runAfter": {
+                                              "Html_to_text_2": [
+                                                "Succeeded"
+                                              ]
+                                            },
+                                            "metadata": {
+                                              "operationMetadataId": "a3c8c55e-bc4a-417f-861e-a750dc0077a9"
+                                            }
+                                          },
+                                          "Parse_JSON_Citations_2": {
+                                            "type": "ParseJson",
+                                            "inputs": {
+                                              "content": "@body('Run_a_Child_Flow_Get_Rec_2')?['citations']",
+                                              "schema": {
+                                                "type": "array",
+                                                "items": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "content": {
+                                                      "type": "string"
+                                                    },
+                                                    "title": {
+                                                      "type": "string"
+                                                    },
+                                                    "url": {},
+                                                    "filepath": {
+                                                      "type": "string"
+                                                    },
+                                                    "chunk_id": {
+                                                      "type": "string"
+                                                    }
+                                                  },
+                                                  "required": [
+                                                    "content",
+                                                    "title",
+                                                    "url",
+                                                    "filepath",
+                                                    "chunk_id"
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            "runAfter": {
+                                              "Add_New_Claim_Adjustment_Code_2": [
+                                                "Succeeded"
+                                              ]
+                                            },
+                                            "metadata": {
+                                              "operationMetadataId": "6d846092-ada1-43d4-8e30-aacc10cb2f16"
+                                            }
+                                          },
+                                          "Apply_to_each_Citation_2": {
+                                            "type": "Foreach",
+                                            "foreach": "@body('Parse_JSON_Citations_2')",
+                                            "actions": {
+                                              "Add_a_new_row_Citation_2": {
+                                                "type": "OpenApiConnection",
+                                                "inputs": {
+                                                  "parameters": {
+                                                    "entityName": "rhail_citations",
+                                                    "item/rhail_title": "@item()['title']",
+                                                    "item/rhail_ClaimAdjustmentCode@odata.bind": "/cp835_claimadjustmentcodes(@{outputs('Add_New_Claim_Adjustment_Code_2')?['body/cp835_claimadjustmentcodeid']})",
+                                                    "item/rhail_content": "@item()['content']",
+                                                    "item/rhail_file": "@item()['title']"
+                                                  },
+                                                  "host": {
+                                                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                                    "operationId": "CreateRecord",
+                                                    "connectionName": "shared_commondataserviceforapps"
+                                                  }
+                                                },
+                                                "metadata": {
+                                                  "operationMetadataId": "cc81301d-76a7-4415-b3a5-080300d76be1"
+                                                }
+                                              }
+                                            },
+                                            "runAfter": {
+                                              "Parse_JSON_Citations_2": [
+                                                "Succeeded"
+                                              ]
+                                            },
+                                            "metadata": {
+                                              "operationMetadataId": "473492bc-01a6-4048-95c6-d33204bd53d3"
+                                            }
+                                          }
+                                        },
+                                        "metadata": {
+                                          "operationMetadataId": "f674cf21-af89-4daf-8a8f-969cffdda23f"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "runAfter": {
+                                    "SVC_Code_Length": [
+                                      "Succeeded"
+                                    ]
+                                  },
+                                  "metadata": {
+                                    "operationMetadataId": "e3dc99eb-156f-4771-b6df-2bb3559cd694"
+                                  }
+                                }
+                              },
+                              "runAfter": {
+                                "If_RARC_Present": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "metadata": {
+                                "operationMetadataId": "1f6084c6-e8c4-4493-be61-ca76ad534ecc"
+                              }
+                            },
+                            "Compose": {
+                              "type": "Compose",
+                              "inputs": "@length(body('Parse_JSON')?['Claim']?['rarc'])",
+                              "runAfter": {
+                                "Update_File_Processing_Row": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "metadata": {
+                                "operationMetadataId": "88382025-3dee-4a99-81d7-a48fb40c6948"
+                              }
+                            }
+                          },
+                          "else": {
+                            "actions": {}
+                          },
+                          "runAfter": {
+                            "Compose_PatientID_Length": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "e34c03a8-476c-4efd-8df8-65855be80e23"
+                          }
+                        },
+                        "Compose_PatientID_Length": {
+                          "type": "Compose",
+                          "inputs": "@length(body('Parse_JSON')?['Claim']?['patientId'])",
+                          "runAfter": {
+                            "Parse_JSON": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "4d569bca-6ec4-4bed-bdb1-7851fc5b0bd3"
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "Filter_Claims": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "f998bde7-e50a-47e9-92dc-94416c073d3b"
+                      }
+                    },
+                    "Update_FILE_to_Success_": {
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "parameters": {
+                          "entityName": "cr1a1_processedfiles",
+                          "recordId": "@variables('File GUID')",
+                          "item/cr1a1_processedstatus": "Success"
+                        },
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                          "operationId": "UpdateOnlyRecord",
+                          "connectionName": "shared_commondataserviceforapps"
+                        }
+                      },
+                      "runAfter": {
+                        "For_Each_Claim": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "03068189-dd93-4563-a71e-b069bdb58148"
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Catch-Parse_Header": [
+                      "Skipped"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "97c844fa-1339-4502-b565-b62c87f16879"
+                  }
+                },
+                "Catch-Parse_Header": {
+                  "type": "Scope",
+                  "actions": {
+                    "Terminate": {
+                      "type": "Terminate",
+                      "inputs": {
+                        "runStatus": "Failed",
+                        "runError": {
+                          "message": "Failed on Parsing Header"
+                        }
+                      },
+                      "metadata": {
+                        "operationMetadataId": "641d0c4b-a3a4-45e4-86fc-140b686a8315"
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Try-Parse_Header": [
+                      "TimedOut",
+                      "Failed"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "ac54d876-bc40-4b53-9fef-b8766d5ca040"
+                  }
+                },
+                "Catch-For_Each_Claim": {
+                  "type": "Scope",
+                  "actions": {
+                    "Update_File_Processed_With_For_Each_Claim_Error": {
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "parameters": {
+                          "entityName": "cr1a1_processedfiles",
+                          "recordId": "@variables('File GUID')",
+                          "item/cr1a1_processedstatus": "Failed on For Each Claim. Go to @{outputs('Compose_URL')}"
+                        },
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                          "operationId": "UpdateOnlyRecord",
+                          "connectionName": "shared_commondataserviceforapps"
+                        }
+                      },
+                      "runAfter": {
+                        "Compose_URL": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "43449b83-a251-492e-ae9f-22968acbc48e"
+                      }
+                    },
+                    "Compose_URL": {
+                      "type": "Compose",
+                      "inputs": "@workflow()['tags']['flowDisplayName']",
+                      "metadata": {
+                        "operationMetadataId": "80f2c49f-e27a-4e30-af94-2fc4b3f4c71c"
+                      }
+                    },
+                    "Terminate_1": {
+                      "type": "Terminate",
+                      "inputs": {
+                        "runStatus": "Failed",
+                        "runError": {
+                          "message": "Failed on For Each Claim"
+                        }
+                      },
+                      "runAfter": {
+                        "Update_File_Processed_With_For_Each_Claim_Error": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "3e59588f-a86a-424b-bb07-94860470deec"
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Try-_For_Each_Claim": [
+                      "TimedOut",
+                      "Failed"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "06d4eefe-06fe-4fba-83f3-0e7bc29f0bda"
+                  }
+                }
+              },
+              "case": "835"
+            },
+            "837": {
+              "actions": {
+                "Try-Parse_837_": {
+                  "type": "Scope",
+                  "actions": {
+                    "Run_a_Child_Flow_Parse_837": {
+                      "type": "Workflow",
+                      "inputs": {
+                        "host": {
+                          "workflowReferenceName": "d3573b01-7bda-ef11-8eea-000d3a34cb2f"
+                        },
+                        "body": {
+                          "text": "@outputs('File_Content')"
+                        }
+                      },
+                      "metadata": {
+                        "operationMetadataId": "2e120adb-e985-4263-aac9-92130f661668"
+                      }
+                    },
+                    "Parse_JSON_837": {
+                      "type": "ParseJson",
+                      "inputs": {
+                        "content": "@body('Run_a_Child_Flow_Parse_837')?['parsed_837_json']",
+                        "schema": {
+                          "type": "object",
+                          "properties": {
+                            "title": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            },
+                            "properties": {
+                              "type": "object",
+                              "properties": {
+                                "Claims": {
+                                  "type": "object",
+                                  "properties": {
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "items": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "ClaimID": {
+                                            "type": "string"
+                                          },
+                                          "TotalClaimCharges": {
+                                            "type": "string"
+                                          },
+                                          "Patient": {
+                                            "type": "object",
+                                            "properties": {
+                                              "Name": {
+                                                "type": "string"
+                                              },
+                                              "DateOfBirth": {
+                                                "type": "string"
+                                              },
+                                              "Gender": {
+                                                "type": "string"
+                                              }
+                                            }
+                                          },
+                                          "Provider": {
+                                            "type": "object",
+                                            "properties": {
+                                              "Name": {
+                                                "type": "string"
+                                              },
+                                              "NPI": {
+                                                "type": "string"
+                                              }
+                                            }
+                                          },
+                                          "Diagnosis": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "object",
+                                              "properties": {
+                                                "Code": {
+                                                  "type": "string"
+                                                },
+                                                "Description": {
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "required": [
+                                                "Code",
+                                                "Description"
+                                              ]
+                                            }
+                                          },
+                                          "Procedure": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "object",
+                                              "properties": {
+                                                "Code": {
+                                                  "type": "string"
+                                                },
+                                                "Amount": {
+                                                  "type": "string"
+                                                },
+                                                "Description": {
+                                                  "type": "string"
+                                                },
+                                                "Modifiers": {
+                                                  "type": "array",
+                                                  "items": {
+                                                    "type": "string"
+                                                  }
+                                                }
+                                              },
+                                              "required": [
+                                                "Code",
+                                                "Amount",
+                                                "Description",
+                                                "Modifiers"
+                                              ]
+                                            }
+                                          },
+                                          "ServiceDate": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "ClaimID",
+                                          "TotalClaimCharges",
+                                          "Patient",
+                                          "Provider",
+                                          "Diagnosis",
+                                          "Procedure",
+                                          "ServiceDate"
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "required": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "Set_variable_File_GUID_837": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "7c6d398a-1f05-423f-8d43-aa19ccababe3"
+                      }
+                    },
+                    "Apply_to_each_Claim": {
+                      "type": "Foreach",
+                      "foreach": "@body('Parse_JSON_837')?['properties']?['Claims']?['items']",
+                      "actions": {
+                        "Add_a_new_row_Claims": {
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "parameters": {
+                              "entityName": "rhail_claims",
+                              "item/rhail_claim": "@items('Apply_to_each_Claim')?['ClaimID']",
+                              "item/rhail_claimjson": "@items('Apply_to_each_Claim')",
+                              "item/rhail_patientdob": "@items('Apply_to_each_Claim')?['Patient']?['DateOfBirth']",
+                              "item/rhail_patientgender": "@items('Apply_to_each_Claim')?['Patient']?['Gender']",
+                              "item/rhail_servicedate": "@items('Apply_to_each_Claim')?['ServiceDate']",
+                              "item/rhail_totalclaimcharges": "@int(items('Apply_to_each_Claim')?['TotalClaimCharges'])"
+                            },
+                            "host": {
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                              "operationId": "CreateRecord",
+                              "connectionName": "shared_commondataserviceforapps"
+                            }
+                          },
+                          "metadata": {
+                            "operationMetadataId": "903eee33-00a1-4cc6-9285-22c045438784"
+                          }
+                        },
+                        "Apply_to_each_Diagnosis": {
+                          "type": "Foreach",
+                          "foreach": "@items('Apply_to_each_Claim')?['Diagnosis']",
+                          "actions": {
+                            "Add_a_new_row_Professional_Services": {
+                              "type": "OpenApiConnection",
+                              "inputs": {
+                                "parameters": {
+                                  "entityName": "rhail_professionalservices",
+                                  "item/rhail_code": "@items('Apply_to_each_Diagnosis')?['Code']",
+                                  "item/rhail_Claim@odata.bind": "/rhail_claims(@{outputs('Add_a_new_row_Claims')?['body/rhail_claimid']})",
+                                  "item/rhail_description": "@items('Apply_to_each_Diagnosis')?['Description']",
+                                  "item/rhail_servicetype": 984780000
+                                },
+                                "host": {
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                  "operationId": "CreateRecord",
+                                  "connectionName": "shared_commondataserviceforapps"
+                                }
+                              },
+                              "metadata": {
+                                "operationMetadataId": "e3d29ee1-8a0a-43ab-856a-7cf1405969ef"
+                              }
+                            }
+                          },
+                          "runAfter": {
+                            "Add_a_new_row_Claims": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "a95ee174-7187-4fab-9144-1029ebf75559"
+                          }
+                        },
+                        "Apply_to_each_Procedure": {
+                          "type": "Foreach",
+                          "foreach": "@items('Apply_to_each_Claim')['Procedure']",
+                          "actions": {
+                            "Add_a_new_row_Procedure": {
+                              "type": "OpenApiConnection",
+                              "inputs": {
+                                "parameters": {
+                                  "entityName": "rhail_professionalservices",
+                                  "item/rhail_code": "@items('Apply_to_each_Procedure')?['Code']",
+                                  "item/rhail_amount": "@items('Apply_to_each_Procedure')?['Amount']",
+                                  "item/rhail_Claim@odata.bind": "/rhail_claims(@{outputs('Add_a_new_row_Claims')?['body/rhail_claimid']})",
+                                  "item/rhail_description": "@items('Apply_to_each_Procedure')?['Description']",
+                                  "item/rhail_modifier": "@items('Apply_to_each_Procedure')?['Modifier']",
+                                  "item/rhail_servicetype": 984780001
+                                },
+                                "host": {
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                  "operationId": "CreateRecord",
+                                  "connectionName": "shared_commondataserviceforapps"
+                                }
+                              },
+                              "metadata": {
+                                "operationMetadataId": "4c0be2af-a59d-4b8c-b98f-0001d74239c6"
+                              }
+                            }
+                          },
+                          "runAfter": {
+                            "Apply_to_each_Diagnosis": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "d38ad983-5515-4925-acc3-d619bf450a1d"
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "Parse_JSON_837": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "4a60eae3-4da7-4d1e-a40f-2e362e696f7b"
+                      }
+                    },
+                    "Add_a_new_row_-_837_File": {
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "parameters": {
+                          "entityName": "cr1a1_processedfiles",
+                          "item/cr1a1_filename": "@triggerOutputs()?['body/{FilenameWithExtension}']",
+                          "item/cr1a1_filetype": 729110001,
+                          "item/cr1a1_processedstatus": "File JSON Parsed"
+                        },
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                          "operationId": "CreateRecord",
+                          "connectionName": "shared_commondataserviceforapps"
+                        }
+                      },
+                      "runAfter": {
+                        "Run_a_Child_Flow_Parse_837": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "fe7cb281-1082-481a-afe7-299ecc1c0db4"
+                      }
+                    },
+                    "Set_variable_File_GUID_837": {
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "File GUID",
+                        "value": "@outputs('Add_a_new_row_-_837_File')?['body/cr1a1_processedfileid']"
+                      },
+                      "runAfter": {
+                        "Add_a_new_row_-_837_File": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "73bd86cd-9cda-4134-9eb3-2737ac4a710c"
+                      }
+                    },
+                    "Update_a_row_-_837_file": {
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "parameters": {
+                          "entityName": "cr1a1_processedfiles",
+                          "recordId": "@variables('File GUID')",
+                          "item/cr1a1_processedstatus": "File Processed Successfully"
+                        },
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                          "operationId": "UpdateOnlyRecord",
+                          "connectionName": "shared_commondataserviceforapps"
+                        }
+                      },
+                      "runAfter": {
+                        "Apply_to_each_Claim": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "edd26495-6ca0-4069-b1b7-9f204104b413"
+                      }
+                    }
+                  },
+                  "metadata": {
+                    "operationMetadataId": "1eb0e357-37c4-4807-a6eb-fed53b83ce26"
+                  }
+                },
+                "Catch-Parse_837": {
+                  "type": "Scope",
+                  "actions": {
+                    "Update_a_row_-_837_file_2": {
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "parameters": {
+                          "entityName": "cr1a1_processedfiles",
+                          "recordId": "@variables('File GUID')",
+                          "item/cr1a1_processedstatus": "File Processed Successfully"
+                        },
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                          "operationId": "UpdateOnlyRecord",
+                          "connectionName": "shared_commondataserviceforapps"
+                        }
+                      },
+                      "metadata": {
+                        "operationMetadataId": "229a7f78-8e98-42e2-a29c-0a82d18c191b"
+                      }
+                    },
+                    "Terminate_837": {
+                      "type": "Terminate",
+                      "inputs": {
+                        "runStatus": "Failed",
+                        "runError": {
+                          "code": "837",
+                          "message": "Could not parse 837 File"
+                        }
+                      },
+                      "runAfter": {
+                        "Update_a_row_-_837_file_2": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "fc4edd93-c85b-439c-8c73-ebc00bc2186f"
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Try-Parse_837_": [
+                      "Failed",
+                      "TimedOut"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "15af22e8-4ebd-4b38-bf3c-ba1b4195c7ea"
+                  }
+                }
+              },
+              "case": "837"
+            }
+          },
+          "runAfter": {
+            "Set_variable_FileType": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "b01d9d89-f897-43a4-a1c2-7c1972e5e5d7"
+          }
+        },
+        "Initialize_variable_File_GUID": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "File GUID",
+                "type": "string"
+              }
+            ]
+          },
+          "runAfter": {
+            "Initialize_variable_Service_Line_GUID": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "226fbfbe-3482-427a-aadc-e17b37ca0145"
+          }
+        },
+        "Initialize_variable_RARC_Codes": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "RARC Codes",
+                "type": "string"
+              }
+            ]
+          },
+          "runAfter": {
+            "Initialize_variable_File_GUID": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "ada87750-23f8-43f9-9865-812ce54775bd"
+          }
+        },
+        "Initialize_variable_Payer_Name": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Payer Name",
+                "type": "string"
+              }
+            ]
+          },
+          "runAfter": {
+            "Initialize_variable_Payer_GUID": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "84c17234-fcf4-4936-8b77-b3ef6eb2bb78"
+          }
+        },
+        "Initialize_variable_Service_Line_GUID": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Service Line GUID",
+                "type": "string"
+              }
+            ]
+          },
+          "runAfter": {
+            "Initialize_variable_Claim_Response_GUID": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "93655a5b-75f4-46bb-91ef-0648b7e38425"
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

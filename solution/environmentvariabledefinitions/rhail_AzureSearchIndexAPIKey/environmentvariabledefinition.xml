@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="rhail_AzureSearchIndexAPIKey">
+  <defaultvalue>YOURAPIKEY</defaultvalue>
+  <description default="API key to run calls to get recommendations and parse files. This api key will be found within your AZURE AI Search blade in Azure Portal">
+    <label description="API key to run calls to get recommendations and parse files. This api key will be found within your AZURE AI Search blade in Azure Portal" languagecode="1033" />
+  </description>
+  <displayname default="Azure Search Index API Key">
+    <label description="Azure Search Index API Key" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.3</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

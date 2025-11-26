@@ -1,0 +1,531 @@
+{
+  "properties": {
+    "connectionReferences": {},
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Azure Search Index URL (rhail_AzureSearchIndexURL)": {
+          "defaultValue": "YOURINDEX",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_AzureSearchIndexURL",
+            "description": "the url for the azure search index used to build the ai model. The url can be found in the Azure Portal. "
+          }
+        },
+        "File Parsing Index (rhail_FileParsingIndex)": {
+          "defaultValue": "parse-autocreate",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_FileParsingIndex",
+            "description": "name of index from azure search to parse the 835 and 837 files"
+          }
+        },
+        "Azure Open Ai API URL (rhail_AzureOpenAiAPIURL)": {
+          "defaultValue": "YOURAPIURL",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_AzureOpenAiAPIURL",
+            "description": "The url used to make HTTP calls to the AI model. This can be found in the azure portal."
+          }
+        },
+        "Azure Open AI API Key (rhail_AzureOpenAIAPIKey)": {
+          "defaultValue": "YOURAPIKEY",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_AzureOpenAIAPIKey",
+            "description": "API key used to send a request to AI to create the recommendation. This key can be found in the Azure Open AI blade in the portal"
+          }
+        },
+        "Azure Search Index API Key (rhail_AzureSearchIndexAPIKey)": {
+          "defaultValue": "YOURAPIKEY",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_AzureSearchIndexAPIKey",
+            "description": "API key to run calls to get recommendations and parse files. This api key will be found within your AZURE AI Search blade in Azure Portal"
+          }
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "dd18ccd6-bd00-4a79-b4c0-79ae56ce0669"
+          },
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "837Content",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Compose_JSON_Schema": {
+          "runAfter": {
+            "Initialize_variable_837_JSON_Output": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "2d187d8d-f85e-4fa5-a486-73d3e93e92c0"
+          },
+          "type": "Compose",
+          "inputs": {
+            "title": "837 EDI File Claims",
+            "type": "object",
+            "properties": {
+              "Claims": {
+                "type": "array",
+                "items": [
+                  {
+                    "ClaimID": "ABC11111",
+                    "TotalClaimCharges": "1800",
+                    "Patient": {
+                      "Name": "ABCDEFGH IJKLMNOP",
+                      "DateOfBirth": "1965-01-01",
+                      "Gender": "M"
+                    },
+                    "Provider": {
+                      "Name": "YYYY HEALTHCARE ABC",
+                      "NPI": "1222222220"
+                    },
+                    "Diagnosis": [
+                      {
+                        "Code": "G5621",
+                        "Description": "Lesion of ulnar nerve, right upper limb"
+                      }
+                    ],
+                    "Procedure": [
+                      {
+                        "Code": "01710",
+                        "Amount": "1800",
+                        "Description": "Anesthesia for procedures on nerves, muscles, tendons, fascia, and bursae of upper arm and elbow",
+                        "Modifiers": [
+                          "QZ"
+                        ]
+                      }
+                    ],
+                    "ServiceDate": "2018-01-23"
+                  },
+                  {
+                    "ClaimID": "ABC111112",
+                    "TotalClaimCharges": "984",
+                    "Patient": {
+                      "Name": "ABCDEFGH IJKLMNOP",
+                      "DateOfBirth": "1976-01-01",
+                      "Gender": "F"
+                    },
+                    "Provider": {
+                      "Name": "ABCDE EFGHIJ GROUP PC",
+                      "NPI": "1222222223"
+                    },
+                    "Diagnosis": [
+                      {
+                        "Code": "K219",
+                        "Description": "Gastro-esophageal reflux disease without esophagitis"
+                      }
+                    ],
+                    "Procedure": [
+                      {
+                        "Code": "00731",
+                        "Amount": "984",
+                        "Description": "Anesthesia for upper gastrointestinal endoscopic procedures, endoscope introduced proximal to duodenum",
+                        "Modifiers": [
+                          "AA",
+                          "P3"
+                        ]
+                      }
+                    ],
+                    "ServiceDate": "2018-07-13"
+                  },
+                  {
+                    "ClaimID": "ABC111113",
+                    "TotalClaimCharges": "1353",
+                    "Patient": {
+                      "Name": "ABCDEFGH IJKLMNOP",
+                      "DateOfBirth": "2018-04-09",
+                      "Gender": "M"
+                    },
+                    "Provider": {
+                      "Name": "ABCDE EFGHIJ GROUP PC",
+                      "NPI": "1477527786"
+                    },
+                    "Diagnosis": [
+                      {
+                        "Code": "K4090",
+                        "Description": "Unilateral inguinal hernia, without obstruction or gangrene, not specified as recurrent"
+                      }
+                    ],
+                    "Procedure": [
+                      {
+                        "Code": "00840",
+                        "Amount": "1353",
+                        "Description": "Anesthesia for intraperitoneal procedures in lower abdomen including laparoscopy; not otherwise specified",
+                        "Modifiers": [
+                          "AA"
+                        ]
+                      }
+                    ],
+                    "ServiceDate": "2018-07-13"
+                  },
+                  {
+                    "ClaimID": "ABC111114",
+                    "TotalClaimCharges": "1968",
+                    "Patient": {
+                      "Name": "ABCDEFGH IJKLMNOP",
+                      "DateOfBirth": "2018-05-04",
+                      "Gender": "F"
+                    },
+                    "Provider": {
+                      "Name": "ABCDE EFGHIJ GROUP PC",
+                      "NPI": "1477527786"
+                    },
+                    "Diagnosis": [
+                      {
+                        "Code": "Q423",
+                        "Description": "Congenital absence, atresia and stenosis of small intestine"
+                      },
+                      {
+                        "Code": "G8918",
+                        "Description": "Chronic pain, not elsewhere classified"
+                      }
+                    ],
+                    "Procedure": [
+                      {
+                        "Code": "00902",
+                        "Amount": "1230",
+                        "Description": "Anesthesia for procedures on lower leg, ankle, foot, not otherwise specified",
+                        "Modifiers": [
+                          "AA"
+                        ]
+                      },
+                      {
+                        "Code": "62322",
+                        "Amount": "738",
+                        "Description": "Injection(s), of diagnostic or therapeutic substance(s) (e.g., anesthetic, antispasmodic, opioid, steroid, other solution), not including neurolytic substances, with or without contrast, lumbar or sacral (caudal); single injection",
+                        "Modifiers": [
+                          "59"
+                        ]
+                      }
+                    ],
+                    "ServiceDate": "2018-07-13"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "Initialize_variable_837_JSON_Output": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "0401d30a-8c21-4458-b9f0-a8ac909a0f23"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "837 JSON Output",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "HTTP": {
+          "runAfter": {
+            "Compose_JSON_Schema": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "192ec4c2-12f9-43cf-9652-a6e8436cfdd0"
+          },
+          "type": "Http",
+          "inputs": {
+            "method": "POST",
+            "uri": "@parameters('Azure Open Ai API URL (rhail_AzureOpenAiAPIURL)')",
+            "headers": {
+              "content-type": "application/json",
+              "api-key": "@{parameters('Azure Open AI API Key (rhail_AzureOpenAIAPIKey)')}"
+            },
+            "body": {
+              "messages": [
+                {
+                  "role": "system",
+                  "content": "You are a Healthcare claim insurance AI assistant that helps people parse 837 file content"
+                },
+                {
+                  "role": "user",
+                  "content": "Parse 837 file content for all claims and the expected output should a JSON string only and no other text, using example provided and not any programming code. For each diagnosis and procedure code, populate the description field with what the code refers to from  ICD-10 and CPT codes . JSON example for output: @{outputs('Compose_JSON_Schema')}Input File content:@{triggerBody()['text']} "
+                }
+              ],
+              "max_tokens": 4096,
+              "data_sources": [
+                {
+                  "type": "azure_search",
+                  "parameters": {
+                    "endpoint": "@{parameters('Azure Search Index URL (rhail_AzureSearchIndexURL)')}",
+                    "index_name": "@{parameters('File Parsing Index (rhail_FileParsingIndex)')}",
+                    "authentication": {
+                      "type": "api_key",
+                      "key": "@{parameters('Azure Search Index API Key (rhail_AzureSearchIndexAPIKey)')}"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "Parse_JSON": {
+          "runAfter": {
+            "HTTP": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "e1c76649-0abc-4f81-8e6b-7bfaf99d1480"
+          },
+          "type": "ParseJson",
+          "inputs": {
+            "content": "@body('HTTP')",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "properties": {
+                  "type": "object",
+                  "properties": {
+                    "Claims": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string"
+                        },
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "ClaimID": {
+                                "type": "string"
+                              },
+                              "TotalClaimCharges": {
+                                "type": "string"
+                              },
+                              "Patient": {
+                                "type": "object",
+                                "properties": {
+                                  "Name": {
+                                    "type": "string"
+                                  },
+                                  "DateOfBirth": {
+                                    "type": "string"
+                                  },
+                                  "Gender": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "Provider": {
+                                "type": "object",
+                                "properties": {
+                                  "Name": {
+                                    "type": "string"
+                                  },
+                                  "NPI": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "Diagnosis": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "Code": {
+                                      "type": "string"
+                                    },
+                                    "Description": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "Code",
+                                    "Description"
+                                  ]
+                                }
+                              },
+                              "Procedure": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "Code": {
+                                      "type": "string"
+                                    },
+                                    "Amount": {
+                                      "type": "string"
+                                    },
+                                    "Description": {
+                                      "type": "string"
+                                    },
+                                    "Modifiers": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "Code",
+                                    "Amount",
+                                    "Description",
+                                    "Modifiers"
+                                  ]
+                                }
+                              },
+                              "ServiceDate": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "ClaimID",
+                              "TotalClaimCharges",
+                              "Patient",
+                              "Provider",
+                              "Diagnosis",
+                              "Procedure",
+                              "ServiceDate"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "required": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Apply_to_each": {
+          "foreach": "@body('Parse_JSON')?['choices']",
+          "actions": {
+            "Compose_-_Replace_escape_ch": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "32ec7ee0-ad6b-47f9-a1f9-5e49f034bdaf"
+              },
+              "type": "Compose",
+              "inputs": "@replace(items('Apply_to_each')?['message']?['content'], '\\\\n', '\\n')"
+            },
+            "Compose_-_extract_valid_JSON_1": {
+              "runAfter": {
+                "Compose_-_Replace_escape_ch": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "07875013-386f-4044-8180-fe66056e873e"
+              },
+              "type": "Compose",
+              "inputs": "@substring(outputs('Compose_-_Replace_escape_ch'),8)"
+            },
+            "Compose_-_extract_valid_JSON_2": {
+              "runAfter": {
+                "Compose_-_extract_valid_JSON_1": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "8437e411-5301-43f9-9811-915fddc9d64b"
+              },
+              "type": "Compose",
+              "inputs": "@substring(outputs('Compose_-_extract_valid_JSON_1'),0,sub(length(outputs('Compose_-_extract_valid_JSON_1')),3))"
+            },
+            "Set_variable": {
+              "runAfter": {
+                "Compose_-_extract_valid_JSON_2": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "640863ac-1cb8-4678-9dc8-1c6bd3bb2df3"
+              },
+              "type": "SetVariable",
+              "inputs": {
+                "name": "837 JSON Output",
+                "value": "@{outputs('Compose_-_extract_valid_JSON_2')}"
+              }
+            }
+          },
+          "runAfter": {
+            "Parse_JSON": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "555c54f7-6a2e-41bb-87e8-9a8e83d18a45"
+          },
+          "type": "Foreach"
+        },
+        "Respond_to_a_Power_App_or_flow": {
+          "runAfter": {
+            "Apply_to_each": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "f45047be-5973-40c2-8dd1-c4430cb01908"
+          },
+          "type": "Response",
+          "kind": "PowerApp",
+          "inputs": {
+            "statusCode": 200,
+            "body": {
+              "parsed_837_json": "@variables('837 JSON Output')"
+            },
+            "schema": {
+              "type": "object",
+              "properties": {
+                "parsed_837_json": {
+                  "title": "Parsed 837 JSON",
+                  "x-ms-dynamically-added": true,
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{08301461-a6f3-ef11-be21-6045bd0a9dbf}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="rhail_code" select="1" icon="1" preview="1">
+        <row name="result" id="rhail_codedefinitionid">
+          <cell name="rhail_codetype" width="100" />
+          <cell name="rhail_code" width="200" />
+          <cell name="rhail_definition" width="300" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical">
+        <entity name="rhail_codedefinition">
+          <attribute name="rhail_code" />
+          <attribute name="rhail_codedefinitionid" />
+          <attribute name="rhail_codetype" />
+          <attribute name="rhail_definition" />
+          <order attribute="rhail_code" descending="false" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.15.0.11</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Code Defs App View" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

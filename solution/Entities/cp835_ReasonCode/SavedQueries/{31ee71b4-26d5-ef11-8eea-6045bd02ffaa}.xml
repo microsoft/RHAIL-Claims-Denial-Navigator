@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{31ee71b4-26d5-ef11-8eea-6045bd02ffaa}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cp835_rarccode" select="1" icon="1" preview="1">
+        <row name="result" id="cp835_reasoncodeid">
+          <cell name="cp835_rarccode" width="200" />
+          <cell name="a_e3402ad589f44f86a601eb4c71428623.rhail_codetype" width="219" />
+          <cell name="a_e3402ad589f44f86a601eb4c71428623.rhail_definition" width="300" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical">
+        <entity name="cp835_reasoncode">&lt;attribute name="cp835_rarccode" /&gt;&lt;attribute name="cp835_definitionlookup" /&gt;&lt;attribute name="createdon" /&gt;&lt;attribute name="modifiedon" /&gt;&lt;attribute name="owningbusinessunit" /&gt;<attribute name="cp835_rarccode" /><attribute name="cp835_reasoncodeid" /><link-entity alias="a_e3402ad589f44f86a601eb4c71428623" name="rhail_codedefinition" to="cp835_definitionlookup" from="rhail_codedefinitionid" link-type="outer" visible="false"><attribute name="rhail_codetype" /><attribute name="rhail_definition" /></link-entity></entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Reason Code with Definitions" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="shows related definitions " languagecode="1033" />
+    </Descriptions>
+  </savedquery>
+</savedqueries>

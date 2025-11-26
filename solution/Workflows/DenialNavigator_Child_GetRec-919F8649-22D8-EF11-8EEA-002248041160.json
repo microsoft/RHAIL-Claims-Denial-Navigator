@@ -1,0 +1,488 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_2bba6"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Azure Search Index URL (rhail_AzureSearchIndexURL)": {
+          "defaultValue": "YOURINDEX",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_AzureSearchIndexURL",
+            "description": "the url for the azure search index used to build the ai model. The url can be found in the Azure Portal. "
+          }
+        },
+        "Azure Open Ai API URL (rhail_AzureOpenAiAPIURL)": {
+          "defaultValue": "YOURAPIURL",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_AzureOpenAiAPIURL",
+            "description": "The url used to make HTTP calls to the AI model. This can be found in the azure portal."
+          }
+        },
+        "File Recommendation Index (rhail_FileRecommendationIndex)": {
+          "defaultValue": "filerecs-autocreate",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_FileRecommendationIndex",
+            "description": "The name of the file recommendation index created in your Azure AI Search service. "
+          }
+        },
+        "Azure Open AI API Key (rhail_AzureOpenAIAPIKey)": {
+          "defaultValue": "YOURAPIKEY",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_AzureOpenAIAPIKey",
+            "description": "API key used to send a request to AI to create the recommendation. This key can be found in the Azure Open AI blade in the portal"
+          }
+        },
+        "Azure Search Index API Key (rhail_AzureSearchIndexAPIKey)": {
+          "defaultValue": "YOURAPIKEY",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_AzureSearchIndexAPIKey",
+            "description": "API key to run calls to get recommendations and parse files. This api key will be found within your AZURE AI Search blade in Azure Portal"
+          }
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "0385abd3-8d3d-497e-8cc0-84b58ee6051a"
+          },
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "CARCCode",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "RARCCode",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_2": {
+                  "title": "Insurance",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_3": {
+                  "description": "Please enter your input",
+                  "title": "FileGUID",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": [
+                "text",
+                "text_1",
+                "text_2",
+                "text_3"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Initialize_Citation": {
+          "runAfter": {
+            "Initialize_Recommendation": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "dfb8bbcd-9b7b-4c9b-af37-cce05dd2bc11"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Citation",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Initialize_ModelInstructions": {
+          "runAfter": {
+            "Initialize_Citation": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "f1e98668-72f1-4ecc-b9a5-0c90ea9984a1"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "ModelInstructions",
+                "type": "string",
+                "value": "You are an AI assistant that helps people fix medical billing files.  Full Response is in HTML code following this example <div class=\"ck-content\" data-wrapper=\"true\" dir=\"ltr\" style=\"--ck-image-style-spacing: 1.5em; --ck-inline-image-style-spacing: calc(var(--ck-image-style-spacing) / 2); --ck-color-selector-caption-background: hsl(0, 0%, 97%); --ck-color-selector-caption-text: hsl(0, 0%, 20%); font-family: Segoe UI; font-size: 11pt;\">  \n  <h2>CARC: CO-16</h2>  \n  <p style=\"margin: 0;\"><strong>Claim/service lacks information or has submission/billing error(s).</strong></p>  \n  <p style=\"margin: 0;\">Usage: Do not use this code for claims attachment(s)/other documentation. At least one Remark Code must be provided (may be comprised of either the NCPDP Reject Reason Code, or Remittance Advice Remark Code that is not an ALERT.) Refer to the 835 Healthcare Policy Identification Segment (loop 2110 Service Payment Information REF), if present.</p>  \n  <h3>RARC:</h3>  \n  <p style=\"margin: 0;\">N255: Missing/incomplete/invalid billing provider taxonomy.</p>  \n  <h3>Recommendations and Steps:</h3>  \n  <p style=\"margin: 0;\"><strong>Identify Missing Information:</strong></p>  \n  <p style=\"margin: 0;\">Review the claim to determine what specific information is missing or incorrect, focusing on the billing provider taxonomy.</p>  \n  <p style=\"margin: 0;\"><strong>Gather Required Information:</strong></p>  \n  <p style=\"margin: 0;\">Ensure you have the correct billing provider taxonomy. This can be found in the provider's enrollment documentation or by contacting the provider directly.</p>  \n  <p style=\"margin: 0;\"><strong>Update the Claim:</strong></p>  \n  <p style=\"margin: 0;\">Correct the billing provider taxonomy on the claim form. Ensure all other required fields are accurately completed.</p>  \n  <p style=\"margin: 0;\"><strong>Verify the Information:</strong></p>  \n  <p style=\"margin: 0;\">Double-check the updated claim to ensure all information is accurate and complete.</p>  \n  <p style=\"margin: 0;\"><strong>Resubmit the Claim:</strong></p>  \n  <p style=\"margin: 0;\">Submit the corrected claim to North Dakota Medicaid for processing.</p>  \n  <p style=\"margin: 0;\"><strong>Contact Customer Service if Needed:</strong></p>  \n  <p style=\"margin: 0;\">If you encounter issues or need further assistance, contact ND Medicaid Claim Customer Service at 844-848-0844 or 701-328-2325, or email NDMMISEDI@nd.gov.</p>  \n  <h3>User Feedback:</h3>  \n  <p style=\"margin: 0;\"><strong>No matching user feedback from SubmittedUserFeedback.txt for CARC CO-16</strong></p>  \n</div>"
+              }
+            ]
+          }
+        },
+        "Initialize_Recommendation": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "f4b175a9-5f66-495d-8127-01bfcab3fed7"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Recommendation",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Try-_Get_Rec": {
+          "actions": {
+            "Compose_Query": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "4bdba5d8-460b-4688-a846-d4e380190b99"
+              },
+              "type": "Compose",
+              "inputs": "Provide recommendations on how to correct the claim for @{trim(triggerBody()?['text_2'])} . In the steps, if applicable add steps on how to find items and documentation. Only include User Feedback (in the final response) from SubmittedUserFeedback.txt if it matches the CARC code and make sure to bold the text. CARC: @{trim(triggerBody()?['text'])}. RARC: @{trim(triggerBody()?['text_1'])}"
+            },
+            "HTTP": {
+              "runAfter": {
+                "Compose_Query": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "3474438f-9c92-489e-8598-0d4778835aab"
+              },
+              "type": "Http",
+              "inputs": {
+                "method": "POST",
+                "uri": "@parameters('Azure Open Ai API URL (rhail_AzureOpenAiAPIURL)')",
+                "headers": {
+                  "content-type": "application/json",
+                  "api-key": "@{parameters('Azure Open AI API Key (rhail_AzureOpenAIAPIKey)')}"
+                },
+                "body": {
+                  "messages": [
+                    {
+                      "role": "system",
+                      "content": "@{variables('ModelInstructions')}"
+                    },
+                    {
+                      "role": "user",
+                      "content": "@{outputs('Compose_Query')}"
+                    }
+                  ],
+                  "temperature": 0,
+                  "top_p": 0.95,
+                  "frequency_penalty": 0,
+                  "presence_penalty": 0,
+                  "max_tokens": 1000,
+                  "stop": null,
+                  "data_sources": [
+                    {
+                      "type": "azure_search",
+                      "parameters": {
+                        "endpoint": "@{parameters('Azure Search Index URL (rhail_AzureSearchIndexURL)')}",
+                        "index_name": "@{parameters('File Recommendation Index (rhail_FileRecommendationIndex)')}",
+                        "authentication": {
+                          "type": "api_key",
+                          "key": "@{parameters('Azure Search Index API Key (rhail_AzureSearchIndexAPIKey)')}"
+                        },
+                        "strictness": 5,
+                        "top_n_documents": 5,
+                        "fields_mapping": {
+                          "content_fields_separator": "\n",
+                          "content_fields": [
+                            "content",
+                            "metadata_storage_name"
+                          ],
+                          "filepath_field": "metadata_storage_path",
+                          "title_field": "metadata_storage_name",
+                          "url_field": "url",
+                          "vector_fields": [
+                            "contentVector"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "operationOptions": "SuppressWorkflowHeaders"
+            },
+            "Parse_JSON": {
+              "runAfter": {
+                "HTTP": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "a1573181-7e37-4b26-b563-01b1fda1e977"
+              },
+              "type": "ParseJson",
+              "inputs": {
+                "content": "@body('HTTP')",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "model": {
+                      "type": "string"
+                    },
+                    "created": {
+                      "type": "integer"
+                    },
+                    "object": {
+                      "type": "string"
+                    },
+                    "choices": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "index": {
+                            "type": "integer"
+                          },
+                          "finish_reason": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "object",
+                            "properties": {
+                              "role": {
+                                "type": "string"
+                              },
+                              "content": {
+                                "type": "string"
+                              },
+                              "end_turn": {
+                                "type": "boolean"
+                              },
+                              "context": {
+                                "type": "object",
+                                "properties": {
+                                  "citations": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "content": {
+                                          "type": "string"
+                                        },
+                                        "title": {},
+                                        "url": {},
+                                        "filepath": {},
+                                        "chunk_id": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "content",
+                                        "title",
+                                        "url",
+                                        "filepath",
+                                        "chunk_id"
+                                      ]
+                                    }
+                                  },
+                                  "intent": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "index",
+                          "finish_reason",
+                          "message"
+                        ]
+                      }
+                    },
+                    "usage": {
+                      "type": "object",
+                      "properties": {
+                        "prompt_tokens": {
+                          "type": "integer"
+                        },
+                        "completion_tokens": {
+                          "type": "integer"
+                        },
+                        "total_tokens": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "system_fingerprint": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "Apply_to_each": {
+              "foreach": "@body('Parse_JSON')?['choices']",
+              "actions": {
+                "Append_to_Recommendation": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "8261a1a2-8f99-43be-976a-0238c34e04f5"
+                  },
+                  "type": "AppendToStringVariable",
+                  "inputs": {
+                    "name": "Recommendation",
+                    "value": "@replace(items('Apply_to_each')?['message']?['content'],'```','')"
+                  }
+                },
+                "Append_to_CItations": {
+                  "runAfter": {
+                    "Append_to_Recommendation": [
+                      "Failed",
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "cbde3fa0-2c9f-4796-8955-a13f8c8614d0"
+                  },
+                  "type": "AppendToStringVariable",
+                  "inputs": {
+                    "name": "Citation",
+                    "value": "@items('Apply_to_each')?['message']?['context']?['citations']"
+                  }
+                }
+              },
+              "runAfter": {
+                "Parse_JSON": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "5b3136a8-199c-4a82-8a2c-8d7c03293ec4"
+              },
+              "type": "Foreach"
+            },
+            "Respond_to_a_Power_App_or_flow": {
+              "runAfter": {
+                "Apply_to_each": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "1cd0222d-2679-43a2-8043-db2151dd92e0"
+              },
+              "type": "Response",
+              "kind": "PowerApp",
+              "inputs": {
+                "statusCode": 200,
+                "body": {
+                  "citations": "@{variables('Citation')}",
+                  "html": "@{variables('Recommendation')}"
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "citations": {
+                      "title": "Citations",
+                      "x-ms-dynamically-added": true,
+                      "type": "string"
+                    },
+                    "html": {
+                      "title": "HTML",
+                      "x-ms-dynamically-added": true,
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Initialize_ModelInstructions": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "bb4b403d-0825-4af0-b653-a71910a54d86"
+          },
+          "type": "Scope"
+        },
+        "Catch_-_Get_Rec": {
+          "actions": {
+            "Update_a_row_Failed_On_Recommendation_": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "caa9992e-8438-4b9e-9555-4f86c2610dfb"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateOnlyRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "cr1a1_processedfiles",
+                  "recordId": "@triggerBody()?['text_3']"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Try-_Get_Rec": [
+              "TimedOut",
+              "Failed"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "003d9ace-3e8f-4c25-a0b8-86a917aef543"
+          },
+          "type": "Scope"
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{b78ea341-8149-4929-b54a-8c51e92f521d}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab verticallayout="true" id="{53cd4d22-1dfe-4bb2-88c6-5a34e457c15c}" IsUserDefined="1">
+          <labels>
+            <label description="" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{613b7cf2-2dc2-4173-9dba-0dc9ee454533}">
+                  <labels>
+                    <label description="GENERAL" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{0e689d1b-23ba-4c5c-bb01-31b273e97985}">
+                        <labels>
+                          <label description="Claim Adjustment Reason Code" languagecode="1033" />
+                        </labels>
+                        <control id="cp835_claimadjustmentreasoncode" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="cp835_claimadjustmentreasoncode" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7cdd7209-afdf-4753-a86c-2abda3666408}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+  </systemform>
+</forms>

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>1</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{052487a1-8393-49af-8eb1-c249681ae049}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cp835_claimid" select="1" icon="1" preview="1">
+        <row name="result" id="cp835_claimresponseid">
+          <cell name="cp835_claimid" width="300" />
+          <cell name="createdon" width="125" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>4</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="cp835_claimresponse">
+          <attribute name="cp835_claimresponseid" />
+          <attribute name="cp835_claimid" />
+          <attribute name="createdon" />
+          <order attribute="cp835_claimid" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <filter type="or" isquickfindfields="1">
+            <condition attribute="cp835_claimid" operator="like" value="{0}" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Quick Find Active 835 Claim Responses" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

@@ -1,0 +1,15 @@
+<environmentvariabledefinition schemaname="rhail_SharepointDocSite">
+  <apiid>/providers/microsoft.powerapps/apis/shared_sharepointonline</apiid>
+  <description default="The Sharepoint site that will ingest the 835 files.">
+    <label description="The Sharepoint site that will ingest the 835 files." languagecode="1033" />
+  </description>
+  <displayname default="Sharepoint Doc Site">
+    <label description="Sharepoint Doc Site" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.3</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <parameterkey>dataset</parameterkey>
+  <secretstore>0</secretstore>
+  <type>100000004</type>
+</environmentvariabledefinition>

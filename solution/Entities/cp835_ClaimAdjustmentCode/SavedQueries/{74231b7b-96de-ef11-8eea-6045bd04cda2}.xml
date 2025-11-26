@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{74231b7b-96de-ef11-8eea-6045bd04cda2}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cp835_claimadjustmentreasoncode" select="1" icon="1" preview="1">
+        <row name="result" id="cp835_claimadjustmentcodeid">
+          <cell name="cp835_claimadjustmentreasoncode" width="100" />
+          <cell name="a_9ca1bcc4fa204419bae6b8f265969d13.rhail_definition" width="215" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical">
+        <entity name="cp835_claimadjustmentcode">&lt;attribute name="cp835_amount" /&gt;&lt;attribute name="cp835_amount_base" /&gt;&lt;attribute name="createdon" /&gt;&lt;attribute name="modifiedon" /&gt;&lt;attribute name="cp835_claimadjustmentreasoncode" /&gt;<attribute name="cp835_claimadjustmentreasoncode" /><attribute name="cp835_claimadjustmentcodeid" /><link-entity alias="a_9ca1bcc4fa204419bae6b8f265969d13" name="rhail_codedefinition" to="cr1a1_definitionlookup" from="rhail_codedefinitionid" link-type="outer" visible="false"><attribute name="rhail_definition" /></link-entity></entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Claim Code With Def" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

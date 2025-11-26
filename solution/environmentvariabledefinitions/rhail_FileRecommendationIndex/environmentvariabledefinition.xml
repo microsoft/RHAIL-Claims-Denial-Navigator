@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="rhail_FileRecommendationIndex">
+  <defaultvalue>filerecs-autocreate</defaultvalue>
+  <description default="The name of the file recommendation index created in your Azure AI Search service. ">
+    <label description="The name of the file recommendation index created in your Azure AI Search service. " languagecode="1033" />
+  </description>
+  <displayname default="File Recommendation Index">
+    <label description="File Recommendation Index" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.3</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

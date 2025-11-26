@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{02a71e29-3f87-4088-ba20-485dfd5873f3}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="rhail_title" select="1" icon="1" preview="1">
+        <row name="result" id="rhail_citationid">
+          <cell name="rhail_title" width="165" />
+          <cell name="rhail_content" width="300" />
+          <cell name="rhail_file" width="300" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="rhail_citation">
+          <attribute name="rhail_citationid" />
+          <attribute name="rhail_title" />
+          <order attribute="rhail_title" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="rhail_content" />
+          <attribute name="rhail_file" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Citations" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

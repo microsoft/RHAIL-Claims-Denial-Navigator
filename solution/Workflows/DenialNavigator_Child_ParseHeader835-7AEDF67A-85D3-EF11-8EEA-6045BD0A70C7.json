@@ -1,0 +1,756 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps-1": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_2bba6"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "Azure Search Index URL (rhail_AzureSearchIndexURL)": {
+          "defaultValue": "YOURINDEX",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_AzureSearchIndexURL",
+            "description": "the url for the azure search index used to build the ai model. The url can be found in the Azure Portal. "
+          }
+        },
+        "File Parsing Index (rhail_FileParsingIndex)": {
+          "defaultValue": "parse-autocreate",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_FileParsingIndex",
+            "description": "name of index from azure search to parse the 835 and 837 files"
+          }
+        },
+        "Azure Open Ai API URL (rhail_AzureOpenAiAPIURL)": {
+          "defaultValue": "YOURAPIURL",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_AzureOpenAiAPIURL",
+            "description": "The url used to make HTTP calls to the AI model. This can be found in the azure portal."
+          }
+        },
+        "Azure Open AI API Key (rhail_AzureOpenAIAPIKey)": {
+          "defaultValue": "YOURAPIKEY",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_AzureOpenAIAPIKey",
+            "description": "API key used to send a request to AI to create the recommendation. This key can be found in the Azure Open AI blade in the portal"
+          }
+        },
+        "Azure Search Index API Key (rhail_AzureSearchIndexAPIKey)": {
+          "defaultValue": "YOURAPIKEY",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_AzureSearchIndexAPIKey",
+            "description": "API key to run calls to get recommendations and parse files. This api key will be found within your AZURE AI Search blade in Azure Portal"
+          }
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "66b50dc5-bd32-4e12-b9b5-7e01620cc830"
+          },
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "HeaderText",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "JSONExample",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_2": {
+                  "title": "FileType",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_3": {
+                  "title": "FileName",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1",
+                "text_2",
+                "text_3"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Initialize_varHeaderText": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "e319e0fe-a783-41d7-9307-051db154fffa"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "varHeaderText",
+                "type": "string",
+                "value": "@triggerBody()['text']"
+              }
+            ]
+          }
+        },
+        "Initialize_varJSONExample": {
+          "runAfter": {
+            "Initialize_varPayerGUID": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "54d7343e-c3bd-4b36-920f-c721e35eaa5d"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "varJSONExample",
+                "type": "string",
+                "value": "@triggerBody()['text_1']"
+              }
+            ]
+          }
+        },
+        "Initialize_varFileType": {
+          "runAfter": {
+            "Initialize_varJSONExample": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "309cb9c8-18a4-4086-a072-d2f9add3bb8a"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "varFileType",
+                "type": "string",
+                "value": "@triggerBody()['text_2']"
+              }
+            ]
+          }
+        },
+        "Initialize_varAPIText": {
+          "runAfter": {
+            "Initialize_varFileType": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "4e23c96f-416b-46cd-9a2b-2c3feb234efe"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "varAPIText",
+                "type": "string",
+                "value": "Parse @{variables('varFileType')} file content and return the JSON output directly similar to below example. If any keys are missing, assign them a empty string value.  Use example : @{variables('varJSONExample')} Input 835 file content: @{variables('varHeaderText')}"
+              }
+            ]
+          }
+        },
+        "Try-Send_Request_And_Insert_Data": {
+          "actions": {
+            "HTTP-Request_Parse": {
+              "metadata": {
+                "operationMetadataId": "8b0e79dd-3503-451d-814b-7286375a69ab"
+              },
+              "type": "Http",
+              "inputs": {
+                "uri": "@parameters('Azure Open Ai API URL (rhail_AzureOpenAiAPIURL)')",
+                "method": "POST",
+                "headers": {
+                  "content-type": "application/json",
+                  "api-key": "@{parameters('Azure Open AI API Key (rhail_AzureOpenAIAPIKey)')}"
+                },
+                "body": {
+                  "messages": [
+                    {
+                      "role": "system",
+                      "content": "You are a Healthcare claim insurance AI assistant that helps people parse  file content"
+                    },
+                    {
+                      "role": "user",
+                      "content": "@{variables('varAPIText')}"
+                    }
+                  ],
+                  "max_tokens": 4096,
+                  "data_sources": [
+                    {
+                      "type": "azure_search",
+                      "parameters": {
+                        "endpoint": "@{parameters('Azure Search Index URL (rhail_AzureSearchIndexURL)')}",
+                        "index_name": "@{parameters('File Parsing Index (rhail_FileParsingIndex)')}",
+                        "authentication": {
+                          "type": "api_key",
+                          "key": "@{parameters('Azure Search Index API Key (rhail_AzureSearchIndexAPIKey)')}"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "Parse_JSON": {
+              "runAfter": {
+                "HTTP-Request_Parse": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "e4abd536-ad55-4411-a2bb-abfe7dee37e1"
+              },
+              "type": "ParseJson",
+              "inputs": {
+                "content": "@body('HTTP-Request_Parse')",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "model": {
+                      "type": "string"
+                    },
+                    "created": {
+                      "type": "integer"
+                    },
+                    "object": {
+                      "type": "string"
+                    },
+                    "choices": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "index": {
+                            "type": "integer"
+                          },
+                          "finish_reason": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "object",
+                            "properties": {
+                              "role": {
+                                "type": "string"
+                              },
+                              "content": {
+                                "type": "string"
+                              },
+                              "end_turn": {
+                                "type": "boolean"
+                              },
+                              "context": {
+                                "type": "object",
+                                "properties": {
+                                  "citations": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "content": {
+                                          "type": "string"
+                                        },
+                                        "title": {},
+                                        "url": {},
+                                        "filepath": {},
+                                        "chunk_id": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "content",
+                                        "title",
+                                        "url",
+                                        "filepath",
+                                        "chunk_id"
+                                      ]
+                                    }
+                                  },
+                                  "intent": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "index",
+                          "finish_reason",
+                          "message"
+                        ]
+                      }
+                    },
+                    "usage": {
+                      "type": "object",
+                      "properties": {
+                        "prompt_tokens": {
+                          "type": "integer"
+                        },
+                        "completion_tokens": {
+                          "type": "integer"
+                        },
+                        "total_tokens": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "system_fingerprint": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "Respond_to_a_Power_App_or_flow": {
+              "runAfter": {
+                "Set_varFileGUID": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "5f779e4f-f0da-45b6-bbc8-10b13744adb0"
+              },
+              "type": "Response",
+              "kind": "PowerApp",
+              "inputs": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "title": "Status",
+                      "x-ms-dynamically-added": true,
+                      "type": "string"
+                    },
+                    "payer_guid": {
+                      "title": "Payer GUID",
+                      "x-ms-dynamically-added": true,
+                      "type": "string"
+                    },
+                    "file_guid": {
+                      "title": "File GUID",
+                      "x-ms-dynamically-added": true,
+                      "type": "string"
+                    },
+                    "payer_name": {
+                      "title": "Payer Name",
+                      "x-ms-dynamically-added": true,
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": {}
+                },
+                "statusCode": 200,
+                "body": {
+                  "status": "Header Parsed",
+                  "payer_guid": "@{variables('varPayerGUID')}",
+                  "file_guid": "@{variables('varFileGuid')}",
+                  "payer_name": "@{body('Parse_Header_JSON')?['835Header']?['Loop 1000A Payer']?['Name']}"
+                }
+              }
+            },
+            "Compose_Header_JSON": {
+              "runAfter": {
+                "Parse_JSON": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "52483071-9129-4a76-912c-bdea5bddeaa9"
+              },
+              "type": "Compose",
+              "inputs": "@body('Parse_JSON')?['choices'][0]?['message']?['content']"
+            },
+            "Step_1_Clean": {
+              "runAfter": {
+                "Compose_Header_JSON": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "02532c61-7bf6-4241-9244-66f4551d642e"
+              },
+              "type": "Compose",
+              "inputs": "@replace(outputs('Compose_Header_JSON'), '\\\\n', '\\n')"
+            },
+            "Step_2_Clean": {
+              "runAfter": {
+                "Step_1_Clean": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "9bb99fbf-088b-43a0-aa7b-348ba74eb6d8"
+              },
+              "type": "Compose",
+              "inputs": "@substring(outputs('Step_1_Clean'),8)"
+            },
+            "Step_3_Clean": {
+              "runAfter": {
+                "Step_2_Clean": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "d2f52143-e33d-4fd0-9a70-8fe52d6877b4"
+              },
+              "type": "Compose",
+              "inputs": "@substring(outputs('Step_2_Clean'),0,sub(length(outputs('Step_2_Clean')),3))"
+            },
+            "Parse_Header_JSON": {
+              "runAfter": {
+                "Step_3_Clean": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "81a4cf66-1e3d-4f1c-8483-62fe45d5862f"
+              },
+              "type": "ParseJson",
+              "inputs": {
+                "content": "@outputs('Step_3_Clean')",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "835Header": {
+                      "type": "object",
+                      "properties": {
+                        "BPR": {
+                          "type": "object",
+                          "properties": {
+                            "Transaction Handling Code": {
+                              "type": "string"
+                            },
+                            "Total Actual Provider Payment Amount": {
+                              "type": "string"
+                            },
+                            "Credit or Debit Flag Code": {
+                              "type": "string"
+                            },
+                            "Payment Method Code": {
+                              "type": "string"
+                            },
+                            "Payment Date": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "TRN": {
+                          "type": "object",
+                          "properties": {
+                            "Trace Type Code": {
+                              "type": "string"
+                            },
+                            "Check or EFT Trace Number": {
+                              "type": "string"
+                            },
+                            "Payer Identifier": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "Loop 1000A Payer": {
+                          "type": "object",
+                          "properties": {
+                            "EntityCode": {
+                              "type": "string"
+                            },
+                            "Name": {
+                              "type": "string"
+                            },
+                            "Address1": {
+                              "type": "string"
+                            },
+                            "Address2": {
+                              "type": "string"
+                            },
+                            "City": {
+                              "type": "string"
+                            },
+                            "State": {
+                              "type": "string"
+                            },
+                            "Zip": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "List_rows_-_Payers": {
+              "runAfter": {
+                "Parse_Header_JSON": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "bc80a272-623a-4b98-9ed2-727b8c41584e"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "rhail_payers",
+                  "$filter": "rhail_payername eq '@{body('Parse_Header_JSON')?['835Header']?['Loop 1000A Payer']?['Name']}'"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "connectionName": "shared_commondataserviceforapps-1"
+                }
+              }
+            },
+            "If_Payer_Not_Available": {
+              "actions": {
+                "Add_a_new_row_-_Payers": {
+                  "metadata": {
+                    "operationMetadataId": "abde8f59-8994-4502-989c-b41b6124d2ff"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "parameters": {
+                      "entityName": "rhail_payers",
+                      "item/rhail_payername": "@body('Parse_Header_JSON')?['835Header']?['Loop 1000A Payer']?['Name']",
+                      "item/rhail_city": "@body('Parse_Header_JSON')?['835Header']?['Loop 1000A Payer']?['City']",
+                      "item/rhail_postalcode": "@body('Parse_Header_JSON')?['835Header']?['Loop 1000A Payer']?['Zip']",
+                      "item/rhail_state": "@body('Parse_Header_JSON')?['835Header']?['Loop 1000A Payer']?['State']"
+                    },
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                      "operationId": "CreateRecord",
+                      "connectionName": "shared_commondataserviceforapps-1"
+                    }
+                  }
+                },
+                "Set_varPayerGuid_New": {
+                  "runAfter": {
+                    "Add_a_new_row_-_Payers": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "cf673a34-33d6-41a8-ba6a-c0b6d4fadb92"
+                  },
+                  "type": "SetVariable",
+                  "inputs": {
+                    "name": "varPayerGUID",
+                    "value": "@outputs('Add_a_new_row_-_Payers')?['body/rhail_payerid']"
+                  }
+                }
+              },
+              "runAfter": {
+                "List_rows_-_Payers": [
+                  "Succeeded"
+                ]
+              },
+              "else": {
+                "actions": {
+                  "Set_varPayerGuid": {
+                    "metadata": {
+                      "operationMetadataId": "1cedc64a-0733-4710-86bb-1cd3305c9a0d"
+                    },
+                    "type": "SetVariable",
+                    "inputs": {
+                      "name": "varPayerGUID",
+                      "value": "@first(outputs('List_rows_-_Payers')?['body/value'])?['rhail_payerid']"
+                    }
+                  }
+                }
+              },
+              "expression": {
+                "and": [
+                  {
+                    "equals": [
+                      "@length(outputs('List_rows_-_Payers')?['body/value'])",
+                      0
+                    ]
+                  }
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "5ad565b5-3429-40b0-b682-49752bdf1dc2"
+              },
+              "type": "If"
+            },
+            "Add_a_new_row_-_Processed_Files": {
+              "runAfter": {
+                "If_Payer_Not_Available": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "e2fb8d47-9331-453d-ab5e-e41c647678a2"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cr1a1_processedfiles",
+                  "item/cr1a1_filename": "@triggerBody()?['text_3']",
+                  "item/cr1a1_bpr": "Payment Date: @{body('Parse_Header_JSON')?['835Header']?['BPR']?['Payment Date']} Payment Amount:@{body('Parse_Header_JSON')?['835Header']?['BPR']?['Total Actual Provider Payment Amount']}",
+                  "item/cr1a1_filetype": 729110000,
+                  "item/cr1a1_processedstatus": "Processed Header",
+                  "item/cr1a1_trn": "Trace Number: @{body('Parse_Header_JSON')?['835Header']?['TRN']?['Check or EFT Trace Number']}"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "connectionName": "shared_commondataserviceforapps-1"
+                }
+              }
+            },
+            "Set_varFileGUID": {
+              "runAfter": {
+                "Add_a_new_row_-_Processed_Files": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "855aa7a9-8361-4208-98e2-14a0427fb180"
+              },
+              "type": "SetVariable",
+              "inputs": {
+                "name": "varFileGuid",
+                "value": "@outputs('Add_a_new_row_-_Processed_Files')?['body/cr1a1_ProcessedFileId']"
+              }
+            }
+          },
+          "runAfter": {
+            "Initialize_varAPIText": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "bfb95d0c-b4c7-4af1-ac84-cb685db9ad3b"
+          },
+          "type": "Scope"
+        },
+        "Catch": {
+          "actions": {
+            "Parse_Header_Error": {
+              "metadata": {
+                "operationMetadataId": "42df384c-5821-4987-9d95-a032b00aa469"
+              },
+              "type": "Compose",
+              "inputs": "Error in processing header!"
+            },
+            "Terminate": {
+              "runAfter": {
+                "Parse_Header_Error": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "71c298cd-7b91-4fb2-8492-0ce9bb5cb71b"
+              },
+              "type": "Terminate",
+              "inputs": {
+                "runStatus": "Failed",
+                "runError": {
+                  "message": "@outputs('Parse_Header_Error')"
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Try-Send_Request_And_Insert_Data": [
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "3f20638b-a8b7-44bd-95c2-bdb6ac20d243"
+          },
+          "type": "Scope"
+        },
+        "Initialize_varFileGuid": {
+          "runAfter": {
+            "Initialize_varHeaderText": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "78d82ba0-d650-4038-bd95-13a30c378e13"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "varFileGuid",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Initialize_varPayerGUID": {
+          "runAfter": {
+            "Initialize_varFileGuid": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "0d1b7fa9-9822-49d7-972b-e231419591db"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "varPayerGUID",
+                "type": "string"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

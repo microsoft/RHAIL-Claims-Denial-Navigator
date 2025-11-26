@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{b6e8fed5-c379-4448-94a4-b2f94c476aed}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="rhail_payername" select="1" icon="1" preview="1">
+        <row name="result" id="rhail_payerid">
+          <cell name="rhail_payername" width="300" />
+          <cell name="rhail_city" width="184" />
+          <cell name="rhail_state" width="100" />
+          <cell name="createdon" width="125" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="rhail_payer">
+          <attribute name="rhail_payerid" />
+          <attribute name="rhail_payername" />
+          <attribute name="createdon" />
+          <order attribute="rhail_payername" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="rhail_city" />
+          <attribute name="rhail_state" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Payers" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

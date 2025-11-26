@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{3ec5e0b5-257c-4476-9313-9a49549093fb}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form headerdensity="HighWithControls">
+      <tabs>
+        <tab verticallayout="true" id="{89b9d7b9-5d7f-4520-b6a4-0d268c3d8175}" IsUserDefined="1">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{f4340e95-fb2a-44e3-b398-e0b9a55fed20}">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{8ba4b4ca-2cfb-4606-bd42-dbbbb7d47ca3}">
+                        <labels>
+                          <label description="Code" languagecode="1033" />
+                        </labels>
+                        <control id="rhail_code" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="rhail_code" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{84f9dd3e-7dc9-429e-9bae-c1c1dba65905}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Description" languagecode="1033" />
+                        </labels>
+                        <control id="rhail_description" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="rhail_description" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{04b30879-c7ca-496f-865d-d46f29bfe586}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Amount" languagecode="1033" />
+                        </labels>
+                        <control id="rhail_amount" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="rhail_amount" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8a153067-1443-4e5a-96f1-ed66e0de0089}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Claim" languagecode="1033" />
+                        </labels>
+                        <control id="rhail_claim" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="rhail_claim" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{e79dacfe-0f09-4e1c-971b-ee7175540ce5}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{a14ad469-3615-4bb0-b1f5-387a56f0a3e7}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{a695a697-ee10-4e20-b646-09394bcf06c3}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{caa7e869-c537-43a9-8d40-2ad66b0faf2f}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{3fb59f12-0893-4e98-8f9f-e3f5b2acdf14}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{d7e2a929-66cd-4a42-8e56-b00d58073463}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{d7244efd-23d9-4fd2-b0df-fcc8cc670dd4}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{80b8b95d-8a4c-45aa-acae-dc3c7f347475}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{5cab3e7e-db5d-4350-b8fd-bc5ad5cf91cc}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="rhail_AzureOpenAIAPIKey">
+  <defaultvalue>YOURAPIKEY</defaultvalue>
+  <description default="API key used to send a request to AI to create the recommendation. This key can be found in the Azure Open AI blade in the portal">
+    <label description="API key used to send a request to AI to create the recommendation. This key can be found in the Azure Open AI blade in the portal" languagecode="1033" />
+  </description>
+  <displayname default="Azure Open AI API Key">
+    <label description="Azure Open AI API Key" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.3</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

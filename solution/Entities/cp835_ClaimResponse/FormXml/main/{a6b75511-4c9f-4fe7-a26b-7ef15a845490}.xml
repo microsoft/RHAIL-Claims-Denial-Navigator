@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{a6b75511-4c9f-4fe7-a26b-7ef15a845490}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form headerdensity="HighWithControls">
+      <tabs>
+        <tab verticallayout="true" id="{9b8e351a-a5c4-496d-b7d7-765474125b85}" IsUserDefined="1" name="Reasons">
+          <labels>
+            <label description="Reason Codes" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{ab276db8-4e75-4a84-a8bf-741a9fe5b5e4}" columns="11">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{7f410490-8953-4a37-a27e-7930a26e5de2}">
+                        <labels>
+                          <label description="Claim ID" languagecode="1033" />
+                        </labels>
+                        <control id="cp835_claimid" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="cp835_claimid" disabled="true" />
+                      </cell>
+                      <cell id="{97b9bdaa-412a-4d29-a8fb-40d9b38153f0}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Patient ID" languagecode="1033" />
+                        </labels>
+                        <control id="cp835_patientid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cp835_patientid" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7c78ad81-fa2e-4476-a836-2a74a23f329e}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Claim Date" languagecode="1033" />
+                        </labels>
+                        <control id="cp835_claimdate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="cp835_claimdate" disabled="true" />
+                      </cell>
+                      <cell id="{afd8c08c-0b40-4a19-84c2-017e61588484}" locklevel="1" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Patient Name" languagecode="1033" />
+                        </labels>
+                        <control id="cp835_patientname" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cp835_patientname" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{b2ee4856-b457-4a2f-bfdd-ce3860cfcc39}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Claim ICN" languagecode="1033" />
+                        </labels>
+                        <control id="cp835_claimicn" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cp835_claimicn" disabled="true" />
+                      </cell>
+                      <cell id="{11af5317-1bcc-4fe9-87d3-70b28141f361}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Total Paid" languagecode="1033" />
+                        </labels>
+                        <control id="cp835_totalpaid" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="cp835_totalpaid" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{5a411c5e-bb21-4a8b-915a-d4b4157824a3}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Claim Status" languagecode="1033" />
+                        </labels>
+                        <control id="cp835_claimstatus" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cp835_claimstatus" disabled="false" />
+                      </cell>
+                      <cell id="{b384c74b-398c-4966-a6e3-10d6cd6a6425}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Deductible" languagecode="1033" />
+                        </labels>
+                        <control id="cp835_deductible" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="cp835_deductible" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{e6cea8e3-389f-472d-b0fc-1666e7a182f2}" visible="false">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{744f06ab-3398-45fd-a3b1-2fe3ce2ec519}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Payer" languagecode="1033" />
+                        </labels>
+                        <control id="cp835_payer" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="cp835_payer" disabled="false" />
+                      </cell>
+                      <cell id="{ff1dd548-b6bf-4d63-840a-6c796ab06de4}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="File" languagecode="1033" />
+                        </labels>
+                        <control id="cp835_file" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="cp835_file" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="CARC" id="b0eabe90-03d3-4869-9dc1-5efdae680beb" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Claim Adjustment Codes" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{56a2aebd-09cd-4782-a75f-f6c6db918a66}" rowspan="4" colspan="1" auto="false" showlabel="false">
+                        <labels>
+                          <label description="CARC" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_1" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>cp835_claimadjustmentcode_RelatedClaimResponse_cp835_claimresponse</RelationshipName>
+                            <TargetEntityType>cp835_claimadjustmentcode</TargetEntityType>
+                            <ViewId>{403BFAD8-C5D9-EF11-8EEA-6045BD02FFAA}</ViewId>
+                            <ViewIds>{6BA7BDE9-43D7-40D9-A29E-799F4D1F0859},{403BFAD8-C5D9-EF11-8EEA-6045BD02FFAA}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="null_section_4" id="b6c7f26d-74b5-47f9-99ce-2fc05defb8f0" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Reason Codes" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{9aadd4b8-0da0-452c-ae39-f5dc2340a6f2}" rowspan="4" colspan="1" auto="false" showlabel="false">
+                        <labels>
+                          <label description="New SG control 1737746554109" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_2" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>cp835_reasoncode_RelatedClaim_cp835_claimresponse</RelationshipName>
+                            <TargetEntityType>cp835_reasoncode</TargetEntityType>
+                            <ViewId>{31EE71B4-26D5-EF11-8EEA-6045BD02FFAA}</ViewId>
+                            <ViewIds>{B43C7498-43FC-4230-89B9-7961451BC143},{31EE71B4-26D5-EF11-8EEA-6045BD02FFAA}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{53ea1221-2217-48eb-a965-58b0c10d8f2d}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{d9e400dd-d664-4f2d-8fd1-124f32b49ae5}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{f571a646-2f74-46a1-803d-5c015a333837}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{9e969af7-5344-4f9c-a5cb-2b838c0f1015}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{6fb7242e-2df6-4b98-ad1f-f72bfaffe879}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{394d8bd6-d0a8-41d7-b371-b65595edf42a}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{d835a603-ad7e-4be0-81d0-062aed90267f}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{e45ca971-5891-46bc-a27d-d36c7ca0e54b}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Main Claim Response Form" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

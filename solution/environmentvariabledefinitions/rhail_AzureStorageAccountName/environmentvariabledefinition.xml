@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="rhail_AzureStorageAccountName">
+  <defaultvalue>YOURACCOUNT</defaultvalue>
+  <description default="the name of the storage account">
+    <label description="the name of the storage account" languagecode="1033" />
+  </description>
+  <displayname default="Azure Storage Account Name">
+    <label description="Azure Storage Account Name" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.14</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

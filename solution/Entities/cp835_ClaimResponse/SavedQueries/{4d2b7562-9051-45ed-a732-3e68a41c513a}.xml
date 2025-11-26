@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{4d2b7562-9051-45ed-a732-3e68a41c513a}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cp835_claimid" select="1" icon="1" preview="1">
+        <row name="result" id="cp835_claimresponseid">
+          <cell name="cp835_claimid" width="118" />
+          <cell name="cp835_patientname" width="116" />
+          <cell name="cp835_patientid" width="100" />
+          <cell name="cp835_claimdate" width="105" />
+          <cell name="createdon" width="105" />
+          <cell name="cp835_claimstatus" width="112" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical" distinct="true">
+        <entity name="cp835_claimresponse">
+          <attribute name="cp835_claimresponseid" />
+          <attribute name="cp835_claimid" />
+          <attribute name="cp835_patientname" />
+          <attribute name="cp835_patientid" />
+          <attribute name="createdon" />
+          <attribute name="cp835_claimdate" />
+          <order attribute="createdon" descending="true" />
+          <filter type="and">
+            <filter type="or">
+              <condition attribute="cp835_claimstatus" operator="eq" value="646370000" />
+              <condition attribute="cp835_claimstatus" operator="eq" value="646370001" />
+            </filter>
+          </filter>
+          <attribute name="cp835_claimstatus" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active 835 Claim Responses" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

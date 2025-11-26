@@ -1,0 +1,250 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_sharepointonline": {
+        "api": {
+          "name": "shared_sharepointonline"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedsharepointonline_9084f"
+        },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "Sharepoint Doc Site (rhail_SharepointDocSite)": {
+          "defaultValue": "https://microsoft.sharepoint.com/teams/RHAIL-DEV",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_SharepointDocSite",
+            "description": "The Sharepoint site that will ingest the 835 files."
+          }
+        },
+        "Sharepoint Library Name (rhail_SharepointLibraryName)": {
+          "defaultValue": "835 Files",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_SharepointLibraryName",
+            "description": "the library name where the 835 documents will be stores"
+          }
+        }
+      },
+      "triggers": {
+        "Recurrence": {
+          "type": "Recurrence",
+          "recurrence": {
+            "frequency": "Day",
+            "interval": 1,
+            "startTime": "2025-02-21T08:00:00Z"
+          },
+          "metadata": {
+            "operationMetadataId": "e7ef9877-74ef-4570-b218-d9659ef7ef44"
+          }
+        }
+      },
+      "actions": {
+        "Initialize_varArchiveFolderCurrentYear": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "varArchiveFolderCurrentYear",
+                "type": "string",
+                "value": "Archive@{formatDateTime(utcNow(), 'yyyy')}"
+              }
+            ]
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "d84a2e42-f677-439b-9232-93e1acfa8251"
+          }
+        },
+        "Get_files_(properties_only)": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "@parameters('Sharepoint Doc Site (rhail_SharepointDocSite)')",
+              "table": "@parameters('Sharepoint Library Name (rhail_SharepointLibraryName)')"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "GetFileItems",
+              "connectionName": "shared_sharepointonline"
+            }
+          },
+          "runAfter": {
+            "Initialize_varDays": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "5d75db44-7ca8-4e49-98d3-c862cf725ff3"
+          }
+        },
+        "Initialize_varDays": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "varDays",
+                "type": "integer",
+                "value": 7
+              }
+            ]
+          },
+          "runAfter": {
+            "Initialize_varArchiveFolderCurrentYear": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "45dc0789-33fe-4c2a-9bed-31c560b65769"
+          }
+        },
+        "Filter_array": {
+          "type": "Query",
+          "inputs": {
+            "from": "@outputs('Get_files_(properties_only)')?['body/value']",
+            "where": "@equals(item()?['{Name}'],variables('varArchiveFolderCurrentYear'))"
+          },
+          "runAfter": {
+            "Get_files_(properties_only)": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "be8c178b-ba5c-48d6-9ae6-5042f87fec20"
+          }
+        },
+        "If_Folder_Not_Found": {
+          "type": "If",
+          "expression": {
+            "and": [
+              {
+                "equals": [
+                  "@if(empty(body('Filter_array')), 0, 1)",
+                  0
+                ]
+              }
+            ]
+          },
+          "actions": {
+            "Create_new_archive_folder": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "dataset": "@parameters('Sharepoint Doc Site (rhail_SharepointDocSite)')",
+                  "table": "@parameters('Sharepoint Library Name (rhail_SharepointLibraryName)')",
+                  "parameters/path": "@variables('varArchiveFolderCurrentYear')"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                  "operationId": "CreateNewFolder",
+                  "connectionName": "shared_sharepointonline"
+                }
+              },
+              "metadata": {
+                "operationMetadataId": "64d57717-daea-434e-9813-4f3301168b8e"
+              }
+            }
+          },
+          "else": {
+            "actions": {}
+          },
+          "runAfter": {
+            "Filter_array": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "fbb6c7ad-177e-474b-98bd-cdac37a62081"
+          }
+        },
+        "Get_files_older_than__varDays": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "@parameters('Sharepoint Doc Site (rhail_SharepointDocSite)')",
+              "table": "@parameters('Sharepoint Library Name (rhail_SharepointLibraryName)')",
+              "$filter": "Created lt '@{formatDateTime(addDays(utcNow(), sub(0, variables('varDays'))), 'yyyy-MM-ddTHH:mm:ssZ')}' and FSObjType eq 0",
+              "viewScopeOption": "Default"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "GetFileItems",
+              "connectionName": "shared_sharepointonline"
+            }
+          },
+          "runAfter": {
+            "If_Folder_Not_Found": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "ba0ac47c-acbb-4207-a1f6-85f5b8d29a23"
+          }
+        },
+        "Apply_to_each": {
+          "type": "Foreach",
+          "foreach": "@outputs('Get_files_older_than__varDays')?['body/value']",
+          "actions": {
+            "FileName": {
+              "type": "Compose",
+              "inputs": "@{item()?['{Path}']}@{item()?['{FilenameWithExtension}']}",
+              "metadata": {
+                "operationMetadataId": "efd825f3-16b8-4e0d-9701-56f8cab49407"
+              }
+            },
+            "Move_file": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "dataset": "@parameters('Sharepoint Doc Site (rhail_SharepointDocSite)')",
+                  "parameters/sourceFileId": "@outputs('FileName')",
+                  "parameters/destinationDataset": "@parameters('Sharepoint Doc Site (rhail_SharepointDocSite)')",
+                  "parameters/destinationFolderPath": "@{parameters('Sharepoint Library Name (rhail_SharepointLibraryName)')}/@{variables('varArchiveFolderCurrentYear')}",
+                  "parameters/nameConflictBehavior": 2
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                  "operationId": "MoveFileAsync",
+                  "connectionName": "shared_sharepointonline"
+                }
+              },
+              "runAfter": {
+                "FileName": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "%252f835%2bFiles%252f835_Dune.txt": "/835 Files/835_Dune.txt",
+                "operationMetadataId": "dd800d54-f456-46aa-8711-bbdef1f209eb"
+              }
+            }
+          },
+          "runAfter": {
+            "Get_files_older_than__varDays": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "3b25698b-5af0-4319-bf55-85dbe0852b04"
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

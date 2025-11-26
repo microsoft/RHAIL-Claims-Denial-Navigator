@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="rhail_AzureSearchIndexURL">
+  <defaultvalue>YOURINDEX</defaultvalue>
+  <description default="the url for the azure search index used to build the ai model. The url can be found in the Azure Portal. ">
+    <label description="the url for the azure search index used to build the ai model. The url can be found in the Azure Portal. " languagecode="1033" />
+  </description>
+  <displayname default="Azure Search Index URL">
+    <label description="Azure Search Index URL" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.3</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

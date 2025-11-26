@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{9ca388cc-21f4-45ab-8ec3-9ab784ed3ea0}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form headerdensity="HighWithControls">
+      <tabs>
+        <tab verticallayout="true" id="{06d78e89-beaa-466e-8641-31ce8ad865aa}" IsUserDefined="1">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{e773b871-d4d4-47bc-b902-fc605935d69f}" name="section_1" columns="11">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{ee310f07-86f0-42dd-a41b-12c927f3b738}">
+                        <labels>
+                          <label description="Payer Name" languagecode="1033" />
+                        </labels>
+                        <control id="rhail_payername" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="rhail_payername" />
+                      </cell>
+                      <cell locklevel="0" id="{e40618f9-d478-44ab-94d3-313d412c140e}" rowspan="4" colspan="1" auto="false">
+                        <labels>
+                          <label description="Claim Responses" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_1" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>10</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <TargetEntityType>rhail_claimresponse</TargetEntityType>
+                            <ViewId>{87EB7D62-18CB-41AA-B3C4-59C09A9FAED7}</ViewId>
+                            <ViewIds>{87EB7D62-18CB-41AA-B3C4-59C09A9FAED7}</ViewIds>
+                            <RelationshipName>rhail_claimresponse_Payer_rhail_payer</RelationshipName>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell id="{fe3d44c0-be4e-4504-b7f5-b691bf1c4c71}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Street Address" languagecode="1033" />
+                        </labels>
+                        <control id="rhail_streetaddress" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="rhail_streetaddress" disabled="false" />
+                      </cell>
+                      <cell locklevel="0" id="{b2ae80d6-0030-401f-b62d-10faaaf1a312}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{f1c28307-8249-468b-a5bb-e744fc0d412e}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="City" languagecode="1033" />
+                        </labels>
+                        <control id="rhail_city" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="rhail_city" disabled="false" />
+                      </cell>
+                      <cell locklevel="0" id="{a80b3b2d-e989-4400-9b16-a25bdb99c9bc}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{eec78fd7-154b-4418-b281-9809ea557dac}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="State" languagecode="1033" />
+                        </labels>
+                        <control id="rhail_state" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="rhail_state" disabled="false" />
+                      </cell>
+                      <cell locklevel="0" id="{321b0b7f-150c-4998-af66-4a0d94e6746e}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{a3740fba-5346-4232-b991-3611338d0e71}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Postal Code" languagecode="1033" />
+                        </labels>
+                        <control id="rhail_postalcode" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="rhail_postalcode" disabled="false" />
+                      </cell>
+                      <cell locklevel="0" id="{79414463-b0e2-4512-ac44-88406a37ce06}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7072019b-47de-470c-888d-82e37f8f19ef}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                      <cell locklevel="0" id="{e33ad926-437a-41a5-910e-b4a183c071bb}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{a2b2224a-bf35-43d8-96b4-0723377e3431}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{2b6a7ead-03e4-466e-b152-3a20c50e7651}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{8a7f4a51-21b8-4d7f-857a-341196797772}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{4e418f09-3641-4f3f-bdb8-a6878c0efc55}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{22de9a61-a47f-4768-a1f4-08a02481b5e7}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{a74050ad-f1cb-4f7d-b502-d08b72050c2e}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{8c027a10-9f35-4bc4-be65-1dee8467ca20}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{0454611f-4d54-49cd-966b-386de3ea9fc6}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

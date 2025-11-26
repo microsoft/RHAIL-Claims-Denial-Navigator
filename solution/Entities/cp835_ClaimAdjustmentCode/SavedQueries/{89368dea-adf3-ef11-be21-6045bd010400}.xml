@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{89368dea-adf3-ef11-be21-6045bd010400}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cp835_claimadjustmentreasoncode" select="1" icon="1" preview="1">
+        <row name="result" id="cp835_claimadjustmentcodeid">
+          <cell name="a_3a35cc81f0ae43c9bfd6c0b8351ee274.cp835_patientname" width="267" />
+          <cell name="cp835_relatedclaimresponse" width="178" />
+          <cell name="cp835_claimadjustmentreasoncode" width="200" />
+          <cell name="a_3a35cc81f0ae43c9bfd6c0b8351ee274.statecode" width="80" />
+          <cell name="cp835_amount" width="200" />
+          <cell name="createdon" width="200" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical">
+        <entity name="cp835_claimadjustmentcode">&lt;attribute name="cp835_amount" /&gt;&lt;attribute name="cp835_claimadjustmentreasoncode" /&gt;&lt;attribute name="createdon" /&gt;&lt;attribute name="modifiedon" /&gt;&lt;attribute name="cp835_recommendationrating" /&gt;<attribute name="cp835_amount" /><attribute name="cp835_claimadjustmentreasoncode" /><attribute name="createdon" /><attribute name="cp835_claimadjustmentcodeid" /><link-entity alias="a_3a35cc81f0ae43c9bfd6c0b8351ee274" name="cp835_claimresponse" to="cp835_relatedclaimresponse" from="cp835_claimresponseid" link-type="outer" visible="false"><attribute name="statecode" /><attribute name="cp835_patientname" /></link-entity><order attribute="createdon" descending="true" /><attribute name="cp835_relatedclaimresponse" /></entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.15.0.11</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Claim By Code" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

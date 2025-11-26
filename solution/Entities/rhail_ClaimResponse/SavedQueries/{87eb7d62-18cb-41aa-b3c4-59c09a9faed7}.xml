@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{87eb7d62-18cb-41aa-b3c4-59c09a9faed7}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="rhail_claimid" select="1" icon="1" preview="1">
+        <row name="result" id="rhail_claimresponseid">
+          <cell name="rhail_claimid" width="152" />
+          <cell name="rhail_claimicn" width="127" />
+          <cell name="cr6ff_patientname" width="145" />
+          <cell name="rhail_payer" width="300" />
+          <cell name="createdon" width="212" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="rhail_claimresponse">
+          <attribute name="rhail_claimresponseid" />
+          <attribute name="rhail_claimid" />
+          <attribute name="createdon" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="cr6ff_patientname" />
+          <attribute name="rhail_payer" />
+          <order attribute="createdon" descending="true" />
+          <attribute name="rhail_claimicn" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Claim Responses" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

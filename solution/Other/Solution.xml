@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml version="9.2.25102.174" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.25102.174" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.25102.00174">
+  <SolutionManifest>
+    <UniqueName>RHAIL</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="RHAIL" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Upgrade of RHAIL" languagecode="1033" />
+    </Descriptions>
+    <Version>1.15.0.33</Version>
+    <Managed>0</Managed>
+    <Publisher>
+      <UniqueName>RHAIL</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="RHAIL" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions />
+      <EMailAddress xsi:nil="true"></EMailAddress>
+      <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
+      <CustomizationPrefix>rhail</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>98478</CustomizationOptionValuePrefix>
+      <Addresses>
+        <Address>
+          <AddressNumber>1</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode>1</ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+        <Address>
+          <AddressNumber>2</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode>1</ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+      </Addresses>
+    </Publisher>
+    <RootComponents>
+      <RootComponent type="1" schemaName="cp835_claimadjustmentcode" behavior="0" />
+      <RootComponent type="1" schemaName="cp835_claimresponse" behavior="0" />
+      <RootComponent type="1" schemaName="cp835_reasoncode" behavior="0" />
+      <RootComponent type="1" schemaName="cp835_serviceline" behavior="0" />
+      <RootComponent type="1" schemaName="cr1a1_processedfile" behavior="0" />
+      <RootComponent type="1" schemaName="rhail_citation" behavior="0" />
+      <RootComponent type="1" schemaName="rhail_claim" behavior="0" />
+      <RootComponent type="1" schemaName="rhail_claimresponse" behavior="0" />
+      <RootComponent type="1" schemaName="rhail_claimresponsecode" behavior="0" />
+      <RootComponent type="1" schemaName="rhail_codedefinition" behavior="0" />
+      <RootComponent type="1" schemaName="rhail_denialrecommendation" behavior="0" />
+      <RootComponent type="1" schemaName="rhail_listqualifier" behavior="0" />
+      <RootComponent type="1" schemaName="rhail_payer" behavior="0" />
+      <RootComponent type="1" schemaName="rhail_professionalservice" behavior="0" />
+      <RootComponent type="20" id="{7e287ce7-d433-ef11-8409-00224809d60a}" behavior="0" />
+      <RootComponent type="20" id="{82b30c32-5e2e-ef11-840a-000d3a5cc5ba}" behavior="0" />
+      <RootComponent type="29" id="{03a5b5ea-56d3-ef11-8ee9-000d3a59454e}" behavior="0" />
+      <RootComponent type="29" id="{5c5a4fe6-31d4-ef11-8eea-6045bd0804f0}" behavior="0" />
+      <RootComponent type="29" id="{7aedf67a-85d3-ef11-8eea-6045bd0a70c7}" behavior="0" />
+      <RootComponent type="29" id="{919f8649-22d8-ef11-8eea-002248041160}" behavior="0" />
+      <RootComponent type="29" id="{abcb83ad-95f0-ef11-be20-002248041911}" behavior="0" />
+      <RootComponent type="29" id="{b28390c4-cedc-ef11-8eea-6045bd0302ea}" behavior="0" />
+      <RootComponent type="29" id="{d3573b01-7bda-ef11-8eea-000d3a34cb2f}" behavior="0" />
+      <RootComponent type="60" id="{179865c8-c6d9-ef11-8ee9-0022480bd890}" behavior="0" />
+      <RootComponent type="60" id="{f6010c0e-d028-ef11-840a-6045bd0175a9}" behavior="0" />
+      <RootComponent type="61" schemaName="rhail_AIWarning" behavior="0" />
+      <RootComponent type="62" schemaName="cp835_ClaimsNavigatorCopilot" behavior="0" />
+      <RootComponent type="62" schemaName="rhail_RHAILClaimRecommendation" behavior="0" />
+      <RootComponent type="80" schemaName="cp835_ClaimsNavigatorCopilot" behavior="0" />
+      <RootComponent type="9" schemaName="cp835_claimstatus" behavior="0" />
+      <RootComponent type="9" schemaName="rhail_billingcodechoices" behavior="0" />
+      <RootComponent type="9" schemaName="rhail_claim835status" behavior="0" />
+      <RootComponent type="9" schemaName="rhail_rhailbillingservicetype" behavior="0" />
+    </RootComponents>
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)" />
+        <Dependent type="80" schemaName="cp835_ClaimsNavigatorCopilot" displayName="Claims Denial Navigator" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="MscrmControls.Rating.StarRatingControl" displayName="MscrmControls.Rating.StarRatingControl" solution="CustomControlsCore (9.2.25102.00174)">
+          <package appName="Custom Controls Package" version="9.2.25102.00174">CustomControlsCore (9.2.25102.00174)</package>
+        </Required>
+        <Dependent type="60" displayName="Information" parentDisplayName="Claim Response Code" id="{4472e572-b470-4a47-abca-bb64707888a6}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="MscrmControls.Rating.StarRatingControl" displayName="MscrmControls.Rating.StarRatingControl" solution="CustomControlsCore (9.2.25102.00174)">
+          <package appName="Custom Controls Package" version="9.2.25102.00174">CustomControlsCore (9.2.25102.00174)</package>
+        </Required>
+        <Dependent type="60" displayName="Main Claim Adjustment Form" parentDisplayName="Claim Adjustment Code" id="{c2d6ebf8-cad9-ef11-8eea-6045bd0804f0}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="MscrmControls.RichTextEditor.RichTextEditorControl" displayName="MscrmControls.RichTextEditor.RichTextEditorControl" solution="msdyn_RichTextEditor (1.25103.4.8315)">
+          <package appName="msdynce_Activities" version="9.0.25102.251015003">msdynce_EnableUCIByDefault (9.0.25102.251015003)</package>
+          <package appName="msdyn_CustomControlsExtended" version="1.25103.4.5744">msdyn_TimelineExtended (1.25103.4.5744)</package>
+        </Required>
+        <Dependent type="60" displayName="Information" parentDisplayName="Claim Response Code" id="{4472e572-b470-4a47-abca-bb64707888a6}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.15)" id.uniquename="AppChannel">
+          <package appName="PowerAppsAppFramework Package" version="1.0.0.23">PowerAppsAppFramework_Anchor (1.0.0.23)</package>
+        </Required>
+        <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=cp835_ClaimsNavigatorCopilot,settingdefinitionid.uniquename=AppChannel" id.parentappmoduleid.uniquename="cp835_ClaimsNavigatorCopilot" id.settingdefinitionid.uniquename="AppChannel" />
+      </MissingDependency>
+    </MissingDependencies>
+  </SolutionManifest>
+</ImportExportXml>

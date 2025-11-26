@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{c2d6ebf8-cad9-ef11-8eea-6045bd0804f0}</formid>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form headerdensity="HighWithControls">
+      <tabs>
+        <tab verticallayout="true" id="{1727e847-1cbd-442d-ba34-7d8262784c48}" IsUserDefined="1" labelid="{1cdcee14-c3cb-4676-ba12-00a5ab3b3b1a}" name="General">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{27bf4ee0-e461-4792-a297-aea0365f5576}" labelid="{9b044f1f-88e4-4c1f-9f91-a000638641d6}">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{8308851d-df37-44ac-b6bf-f8bc93fcbc01}" labelid="{71df63ad-c6cc-494d-a9ae-be6694dc3820}">
+                        <labels>
+                          <label description="Claim Adjustment Reason Code" languagecode="1033" />
+                        </labels>
+                        <control id="cp835_claimadjustmentreasoncode" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="cp835_claimadjustmentreasoncode" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6b5927a0-17f4-4cfc-bd77-60111141def7}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Definition" languagecode="1033" />
+                        </labels>
+                        <control id="cp835_definition" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cp835_definition" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{eba0a596-372d-42f5-bf20-51c0c3f6622e}" showlabel="true" visible="false" labelid="{174527e3-2770-4396-bbb6-d50373aeaeed}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="null_section_3" id="2a4d6e47-d3d0-4678-933f-7036f9d50905" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" labelid="{a68c8a2d-ceaf-4d0c-bf16-9712dc89086b}">
+                  <labels>
+                    <label description="Recommendation" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell rowspan="1" id="{0fdd090d-d246-4451-89ff-e0023213b012}" showlabel="false" colspan="1">
+                        <labels>
+                          <label description="AIWarning" languagecode="1033" />
+                        </labels>
+                        <control id="WebResource_new_1" classid="{9FDF5F91-88B1-47F4-AD53-C11EFC01A01D}">
+                          <parameters>
+                            <Url>rhail_AIWarning</Url>
+                            <PassParameters>false</PassParameters>
+                            <Security>false</Security>
+                            <Scrolling>auto</Scrolling>
+                            <Border>false</Border>
+                            <ShowOnMobileClient>false</ShowOnMobileClient>
+                            <WebResourceId>{6c03cd83-edf9-ef11-be21-0022480c5d83}</WebResourceId>
+                          </parameters>
+                        </control>
+                        <events>
+                          <event name="onload" application="false" active="false" />
+                        </events>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6887462f-9c09-4855-bf9b-c58eb0ca9342}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Recommendation HTML" languagecode="1033" />
+                        </labels>
+                        <control id="cp835_recommendationhtml" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cp835_recommendationhtml" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{e73e87f3-f5d5-4de7-822e-f1cf7ccfc7dc}" locklevel="0" colspan="1" rowspan="1" auto="true" visible="false">
+                        <labels>
+                          <label description="Recommendation" languagecode="1033" />
+                        </labels>
+                        <control id="cp835_recommendation" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cp835_recommendation" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="null_section_4" id="1f1fa1d2-a9ef-4b35-83eb-0995d774e321" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" labelid="{0c28c053-ec71-40f1-b6f1-122db7128384}">
+                  <labels>
+                    <label description="Rate &amp; Review" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{31f0c33f-81bf-4c49-9d6f-d1880b49520a}" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Recommendation Rating" languagecode="1033" />
+                        </labels>
+                        <control id="cp835_recommendationrating" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cp835_recommendationrating" uniqueid="{3fa8a730-c2c1-4434-bcfc-3e5a06607399}" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{cf0e4d84-eac9-4201-9ad1-552ccd6cf5fb}" locklevel="0" colspan="1" rowspan="1" labelid="{0d2636a0-f8d2-4d4f-82ca-6f79fa2d0fef}">
+                        <labels>
+                          <label description="Feedback" languagecode="1033" />
+                        </labels>
+                        <control id="cp835_feedback" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cp835_feedback" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7bd2c21c-38e1-47d9-aaa7-64ea70b6234b}" locklevel="0" colspan="1" rowspan="1" labelid="{c36980af-c237-44e8-bfd1-7b78561eecf1}">
+                        <labels>
+                          <label description="Resolution Steps" languagecode="1033" />
+                        </labels>
+                        <control id="cp835_resolutionsteps" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cp835_resolutionsteps" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{8228b43c-03e8-4774-9ca8-6e946a84b94e}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{ded797dc-a2db-435b-9900-f52eeca10aa0}" showlabel="false" labelid="{306f8d3e-8b7e-4589-8cbb-f802a048bd2f}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{81a1e9ed-54df-4ae6-960f-88661063d9e3}" showlabel="false" labelid="{97ee8dc5-a9cb-4e9f-aa18-508957bf736a}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{02cb7020-4c8a-4fa9-9524-cccf2eccf09c}" showlabel="false" labelid="{36416aab-f649-42cc-bc41-b22863056468}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{4f86c825-1f30-47d6-bc58-745a561438d2}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{18d118a2-b71f-4560-8e5f-4d7ae5d63f81}" showlabel="false" labelid="{47d9303c-7ee3-4760-b962-c7fc35bf11f1}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{9c135cc0-fab3-457a-859f-6557f8944ada}" showlabel="false" labelid="{35d0c61d-99bc-4cd7-9579-d519cfc3dafc}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{6ee4e0fd-7df7-4daf-8089-c17e7303327d}" showlabel="false" labelid="{dd298fd9-941b-42e2-a1f9-8e99bf9d80e3}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="1" FallbackForm="true">
+        <Role Id="{7E287CE7-D433-EF11-8409-00224809D60A}" />
+        <Role Id="{82B30C32-5E2E-EF11-840A-000D3A5CC5BA}" />
+        <Role Id="{627090ff-40a3-4053-8790-584edc5be201}" />
+        <Role Id="{119f245c-3cc8-4b62-b31c-d1a046ced15d}" />
+      </DisplayConditions>
+      <controlDescriptions>
+        <controlDescription forControl="{3fa8a730-c2c1-4434-bcfc-3e5a06607399}">
+          <customControl id="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}">
+            <parameters>
+              <datafieldname>cp835_recommendationrating</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl id="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}">
+            <parameters>
+              <datafieldname>cp835_recommendationrating</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="MscrmControls.Rating.StarRatingControl">
+            <parameters>
+              <value type="Whole.None">cp835_recommendationrating</value>
+              <max type="Enum" static="true">5</max>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="MscrmControls.Rating.StarRatingControl">
+            <parameters>
+              <value type="Whole.None">cp835_recommendationrating</value>
+              <max type="Enum" static="true">5</max>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="MscrmControls.Rating.StarRatingControl">
+            <parameters>
+              <value type="Whole.None">cp835_recommendationrating</value>
+              <max type="Enum" static="true">5</max>
+            </parameters>
+          </customControl>
+        </controlDescription>
+      </controlDescriptions>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Main Claim Adjustment Form" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

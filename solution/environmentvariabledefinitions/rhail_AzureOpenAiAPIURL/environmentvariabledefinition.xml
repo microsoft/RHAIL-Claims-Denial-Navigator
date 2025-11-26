@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="rhail_AzureOpenAiAPIURL">
+  <defaultvalue>YOURAPIURL</defaultvalue>
+  <description default="The url used to make HTTP calls to the AI model. This can be found in the azure portal.">
+    <label description="The url used to make HTTP calls to the AI model. This can be found in the azure portal." languagecode="1033" />
+  </description>
+  <displayname default="Azure Open Ai API URL">
+    <label description="Azure Open Ai API URL" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.3</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

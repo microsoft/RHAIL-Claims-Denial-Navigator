@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{3b4c73ed-4462-43ff-bf7f-246abcad6062}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form headerdensity="HighWithControls">
+      <tabs>
+        <tab verticallayout="true" id="{d01b1e80-054a-44b1-9cc3-0e08d78cefbd}" IsUserDefined="1" name="ClaimAdjustment">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{feba0b75-7420-4123-a10b-2db52698db2a}" columns="11" name="null_section_1">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{3328d179-f094-437f-b37d-731388048798}">
+                        <labels>
+                          <label description="Account Number" languagecode="1033" />
+                        </labels>
+                        <control id="rhail_claimid" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="rhail_claimid" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{b991b431-0aab-4b97-b9b4-a2105c41cc51}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Patient Name" languagecode="1033" />
+                        </labels>
+                        <control id="cr6ff_patientname" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cr6ff_patientname" disabled="true" />
+                      </cell>
+                      <cell locklevel="0" id="{f060884e-9dbf-4c54-a114-eb9ab905ccdf}" showlabel="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{f9b8465b-4ac7-495f-b8a1-4bcd20de73d0}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Created On" languagecode="1033" />
+                        </labels>
+                        <control id="createdon" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="createdon" disabled="false" />
+                      </cell>
+                      <cell locklevel="0" id="{faab74c7-1859-495d-a2bc-fa01a3c33756}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{754fc094-6d8e-4e70-b4eb-d8e5b45fbfcf}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Status" languagecode="1033" />
+                        </labels>
+                        <control id="statecode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="statecode" disabled="false" />
+                      </cell>
+                      <cell id="{870d1449-e5e9-438d-8fa4-547db2d234d7}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Original Claim (837)" languagecode="1033" />
+                        </labels>
+                        <control id="rhail_claim" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="rhail_claim" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{ddf5c375-5d8a-4deb-a711-b0a43c80babe}" showlabel="true" visible="false">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                      <cell id="{452afff1-5730-41c0-a36f-c08e2fefbcc7}" locklevel="0" colspan="1" rowspan="1" visible="true">
+                        <labels>
+                          <label description="Payer" languagecode="1033" />
+                        </labels>
+                        <control id="rhail_payer" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="rhail_payer" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{90c06fbf-264d-4ac6-972d-b468a99adafa}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell id="{ccff7996-bc3a-45ae-8eda-023498b5fb2b}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Claim Number" languagecode="1033" />
+                        </labels>
+                        <control id="rhail_claimicn" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="rhail_claimicn" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{d9998513-cc5b-49a7-a0c9-193ce70962f7}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell id="{e564bdd5-2eac-413d-8abf-24737e706feb}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Patient ID" languagecode="1033" />
+                        </labels>
+                        <control id="rhail_medicalrecordnumber" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="rhail_medicalrecordnumber" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="null_section_3" id="fea6f11b-f973-4323-a24c-6f60e199ca76" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Claim Adjustment" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{00628c6b-e354-bbd2-2ca2-51da3986526c}" showlabel="false" colspan="1" auto="false" rowspan="8">
+                        <labels>
+                          <label description="Claim Response Codes" languagecode="1033" />
+                        </labels>
+                        <control id="subgridCodes" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}" indicationOfSubgrid="true">
+                          <parameters>
+                            <ViewId>{9C2ACDDB-FE8A-47EF-8FAF-1CD9B039F28C}</ViewId>
+                            <IsUserView>false</IsUserView>
+                            <RelationshipName>cr6ff_rhail_claimresponsecode_ClaimResponse_rhail_claimresponse</RelationshipName>
+                            <TargetEntityType>rhail_claimresponsecode</TargetEntityType>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <ViewIds>{9C2ACDDB-FE8A-47EF-8FAF-1CD9B039F28C}</ViewIds>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <RecordsPerPage>5</RecordsPerPage>
+                            <HeaderColorCode>#F3F3F3</HeaderColorCode>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{bcde04ed-8ae1-485b-91d6-89cbdacd815d}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{ed9c2f6b-b862-42a1-badf-f9c25d347bc5}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{f2f5e855-7554-4463-aeff-4aa45c7d27b0}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{4cb230c4-dc03-412e-baf1-3d68a3f91c77}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{4ffacdfa-6161-4c32-a4f9-0ce32886687d}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{b088ce59-798d-4358-9805-d3ba1b9e7a4f}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{2585f027-2bff-476b-b55f-c29cc8aff815}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{3765f5c8-3319-4b8e-ad1d-2c05db5ee25c}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <controlDescriptions />
+      <Navigation>
+        <NavBar />
+        <NavBarAreas>
+          <NavBarArea Id="Info">
+            <Titles>
+              <Title LCID="1033" Text="Common" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="Sales">
+            <Titles>
+              <Title LCID="1033" Text="Sales" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="Service">
+            <Titles>
+              <Title LCID="1033" Text="Service" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="Marketing">
+            <Titles>
+              <Title LCID="1033" Text="Marketing" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="ProcessCenter">
+            <Titles>
+              <Title LCID="1033" Text="Process Sessions" />
+            </Titles>
+          </NavBarArea>
+        </NavBarAreas>
+      </Navigation>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

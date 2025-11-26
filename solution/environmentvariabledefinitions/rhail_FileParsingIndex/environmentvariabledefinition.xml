@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="rhail_FileParsingIndex">
+  <defaultvalue>parse-autocreate</defaultvalue>
+  <description default="name of index from azure search to parse the 835 and 837 files">
+    <label description="name of index from azure search to parse the 835 and 837 files" languagecode="1033" />
+  </description>
+  <displayname default="File Parsing Index">
+    <label description="File Parsing Index" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.3</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

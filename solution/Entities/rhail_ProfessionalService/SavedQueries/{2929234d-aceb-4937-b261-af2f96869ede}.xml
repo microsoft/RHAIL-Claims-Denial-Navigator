@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{2929234d-aceb-4937-b261-af2f96869ede}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="rhail_code" select="1" icon="1" preview="1">
+        <row name="result" id="rhail_professionalserviceid">
+          <cell name="rhail_servicetype" width="114" />
+          <cell name="rhail_code" width="156" />
+          <cell name="rhail_amount" width="100" />
+          <cell name="rhail_description" width="300" />
+          <cell name="rhail_modifier" width="100" />
+          <cell name="createdon" width="105" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="rhail_professionalservice">
+          <attribute name="rhail_professionalserviceid" />
+          <attribute name="rhail_code" />
+          <order attribute="rhail_code" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="rhail_amount" />
+          <attribute name="rhail_description" />
+          <attribute name="createdon" />
+          <attribute name="rhail_servicetype" />
+          <attribute name="rhail_modifier" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Professional Services" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

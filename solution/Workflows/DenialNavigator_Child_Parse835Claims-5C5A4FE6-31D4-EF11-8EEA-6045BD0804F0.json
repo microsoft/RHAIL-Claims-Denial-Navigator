@@ -1,0 +1,357 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps_1": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_2bba6"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Azure Search Index URL (rhail_AzureSearchIndexURL)": {
+          "defaultValue": "YOURINDEX",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_AzureSearchIndexURL",
+            "description": "the url for the azure search index used to build the ai model. The url can be found in the Azure Portal. "
+          }
+        },
+        "File Parsing Index (rhail_FileParsingIndex)": {
+          "defaultValue": "parse-autocreate",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_FileParsingIndex",
+            "description": "name of index from azure search to parse the 835 and 837 files"
+          }
+        },
+        "Azure Open Ai API URL (rhail_AzureOpenAiAPIURL)": {
+          "defaultValue": "YOURAPIURL",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_AzureOpenAiAPIURL",
+            "description": "The url used to make HTTP calls to the AI model. This can be found in the azure portal."
+          }
+        },
+        "Azure Open AI API Key (rhail_AzureOpenAIAPIKey)": {
+          "defaultValue": "YOURAPIKEY",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_AzureOpenAIAPIKey",
+            "description": "API key used to send a request to AI to create the recommendation. This key can be found in the Azure Open AI blade in the portal"
+          }
+        },
+        "Azure Search Index API Key (rhail_AzureSearchIndexAPIKey)": {
+          "defaultValue": "YOURAPIKEY",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_AzureSearchIndexAPIKey",
+            "description": "API key to run calls to get recommendations and parse files. This api key will be found within your AZURE AI Search blade in Azure Portal"
+          }
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "9dbf5ee4-9f65-4135-8872-b6272a874089"
+          },
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "ClaimText",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "FileGUID",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Try": {
+          "actions": {
+            "JSON_Example": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "01685bd7-993c-4a35-b404-e13cd0e1757a"
+              },
+              "type": "Compose",
+              "inputs": " With NO RARC or Service Lines:\\n{ \\\"claim\\\": { \\\"claimId\\\": \\\"77777778\\\", \\\"totalCost\\\": 3002.00, \\\"totalPaid\\\": 0.00, \\\"deductible\\\": 0.00, \\\"claimICN\\\": \\\"6666666666667\\\", \\\"patientFirstName\\\": \\\"Bob\\\", \\\"patientLastName\\\":\\\"Thomas\\\", \\\"patientId\\\": \\\"55555555555\\\", \\\"rarc\\\": [], \\\"claimDate\\\": \\\"2017-10-01\\\", \\\"serviceLines\\\": [ { \\\"serviceCode\\\": null, \\\"chargeAmount\\\": 3002.00, \\\"paidAmount\\\": 0.00, \\\"cas\\\": [ { \\\"groupCode\\\": \\\"OA\\\", \\\"carc\\\": \\\"176\\\", \\\"amount\\\": 3002.00 } ] } ] } }\\n\\nWith RARC and Service Lines:\\n{ \\\"claim\\\": { \\\"claimId\\\": \\\"H9570054055700\\\", \\\"totalCost\\\": 1375.00, \\\"totalPaid\\\": 0, \\\"deductible\\\": null, \\\"claimICN\\\": \\\"ECTYF8NJ40000\\\", \\\"patientFirstName\\\": \\\"MINNIE\\\", \\\"patientLastName\\\":\\\"MOUSE\\\",\\\"patientId\\\": \\\"W228502255\\\", \\\"rarc\\\": [\\\"MA48\\\", \\\"N706\\\"], \\\"claimDate\\\": \\\"2024-07-17\\\", \\\"serviceLines\\\": [ { \\\"serviceCode\\\": \\\"HC:97110:GP\\\", \\\"chargeAmount\\\": 115.00, \\\"paidAmount\\\": 0, \\\"cas\\\": [ { \\\"groupCode\\\": \\\"PI\\\", \\\"carc\\\": \\\"226\\\", \\\"amount\\\": 115.00 } ] }, { \\\"serviceCode\\\": \\\"HC:97110:GP\\\", \\\"chargeAmount\\\": 345.00, \\\"paidAmount\\\": 0, \\\"cas\\\": [ { \\\"groupCode\\\": \\\"PI\\\", \\\"carc\\\": \\\"226\\\", \\\"amount\\\": 345.00 } ] } ] } }"
+            },
+            "Compose_Claim": {
+              "runAfter": {
+                "JSON_Example": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "8c2450aa-284d-4a47-8cf7-a39e6c050778"
+              },
+              "type": "Compose",
+              "inputs": "@triggerBody()['text']"
+            },
+            "HTTP": {
+              "runAfter": {
+                "Compose_Claim": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "c2de6b9a-6699-4f46-917f-cbdc82bafac4"
+              },
+              "type": "Http",
+              "inputs": {
+                "method": "POST",
+                "uri": "@parameters('Azure Open Ai API URL (rhail_AzureOpenAiAPIURL)')",
+                "headers": {
+                  "content-type": "application/json",
+                  "api-key": "@{parameters('Azure Open AI API Key (rhail_AzureOpenAIAPIKey)')}"
+                },
+                "body": {
+                  "messages": [
+                    {
+                      "role": "system",
+                      "content": "You are a Healthcare claim insurance AI assistant that helps people parse 835 file content designed to output JSON following this schema: @{outputs('JSON_Example')}"
+                    },
+                    {
+                      "role": "user",
+                      "content": "Parse 835 file content and return JSON ONLY. Assign missing keys empty string values unless they are an amount , where it should use 0.00. ClaimID should be parsed as the first segment and ClaimICN as last in the CLP line .  Always parse the First and Last name and patient id of patient. Input 835 file content:@{outputs('Compose_Claim')} "
+                    }
+                  ],
+                  "data_sources": [
+                    {
+                      "type": "azure_search",
+                      "parameters": {
+                        "endpoint": "@{parameters('Azure Search Index URL (rhail_AzureSearchIndexURL)')}",
+                        "index_name": "@{parameters('File Parsing Index (rhail_FileParsingIndex)')}",
+                        "authentication": {
+                          "type": "api_key",
+                          "key": "@{parameters('Azure Search Index API Key (rhail_AzureSearchIndexAPIKey)')}"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "Parse_JSON": {
+              "runAfter": {
+                "HTTP": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "8e42e076-e75c-456f-9b3d-01a19d6b2c03"
+              },
+              "type": "ParseJson",
+              "inputs": {
+                "content": "@body('HTTP')",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "claim": {
+                      "type": "object",
+                      "properties": {
+                        "claimId": {
+                          "type": "string"
+                        },
+                        "totalCost": {
+                          "type": "integer"
+                        },
+                        "totalPaid": {
+                          "type": "integer"
+                        },
+                        "deductible": {
+                          "type": "integer"
+                        },
+                        "claimICN": {
+                          "type": "string"
+                        },
+                        "patientFirstName": {
+                          "type": "string"
+                        },
+                        "patientLastName": {
+                          "type": "string"
+                        },
+                        "patientId": {
+                          "type": "string"
+                        },
+                        "rarc": {
+                          "type": "array"
+                        },
+                        "claimDate": {
+                          "type": "string"
+                        },
+                        "serviceLines": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "serviceCode": {
+                                "type": "string"
+                              },
+                              "chargeAmount": {
+                                "type": "integer"
+                              },
+                              "paidAmount": {
+                                "type": "integer"
+                              },
+                              "cas": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "groupCode": {
+                                      "type": "string"
+                                    },
+                                    "carc": {
+                                      "type": "string"
+                                    },
+                                    "amount": {
+                                      "type": "integer"
+                                    }
+                                  },
+                                  "required": [
+                                    "groupCode",
+                                    "carc",
+                                    "amount"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "serviceCode",
+                              "chargeAmount",
+                              "paidAmount",
+                              "cas"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "Parsed_Claim": {
+              "runAfter": {
+                "Parse_JSON": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "beae8103-8f0b-4b57-bf2a-d006c6c8a48d"
+              },
+              "type": "Compose",
+              "inputs": "@replace(replace(body('Parse_JSON')?['choices'][0]?['message']?['content'], '```json', ' '), '```', ' ')"
+            },
+            "Respond_to_a_Power_App_or_flow": {
+              "runAfter": {
+                "Parsed_Claim": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "81ca5217-63a4-441f-ad96-b9eaa006229a"
+              },
+              "type": "Response",
+              "kind": "PowerApp",
+              "inputs": {
+                "statusCode": 200,
+                "body": {
+                  "parsedclaim": "@{outputs('Parsed_Claim')}"
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "parsedclaim": {
+                      "title": "ParsedClaim",
+                      "x-ms-dynamically-added": true,
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "b0465875-77aa-4750-aae7-0640f5c42ce7"
+          },
+          "type": "Scope"
+        },
+        "Catch": {
+          "actions": {
+            "Update_a_row-Failed_Status": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "bcc8097d-7d6c-4c26-acb4-ea0848c59c14"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps_1",
+                  "operationId": "UpdateOnlyRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "cr1a1_processedfiles",
+                  "recordId": "@triggerBody()['text_1']",
+                  "item/cr1a1_processedstatus": "Failed on Child FLow Parse 835 Claims"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Try": [
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "d574d664-934b-41a4-a393-855337dc84c3"
+          },
+          "type": "Scope"
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

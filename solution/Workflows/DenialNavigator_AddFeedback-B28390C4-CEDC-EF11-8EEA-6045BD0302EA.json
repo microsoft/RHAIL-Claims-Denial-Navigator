@@ -1,0 +1,279 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_conversionservice": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedconversionservice_e15b5"
+        },
+        "api": {
+          "name": "shared_conversionservice"
+        }
+      },
+      "shared_azureblob": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "cp835_sharedazureblob_6e9b1"
+        },
+        "api": {
+          "name": "shared_azureblob"
+        }
+      },
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_2bba6"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Azure Search Index URL (rhail_AzureSearchIndexURL)": {
+          "defaultValue": "YOURINDEX",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_AzureSearchIndexURL",
+            "description": "the url for the azure search index used to build the ai model. The url can be found in the Azure Portal. "
+          }
+        },
+        "Azure Storage Account Name (rhail_AzureStorageAccountName)": {
+          "defaultValue": "YOURACCOUNT",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_AzureStorageAccountName",
+            "description": "the name of the storage account"
+          }
+        },
+        "Azure Search Index API Key (rhail_AzureSearchIndexAPIKey)": {
+          "defaultValue": "YOURAPIKEY",
+          "type": "String",
+          "metadata": {
+            "schemaName": "rhail_AzureSearchIndexAPIKey",
+            "description": "API key to run calls to get recommendations and parse files. This api key will be found within your AZURE AI Search blade in Azure Portal"
+          }
+        }
+      },
+      "triggers": {
+        "When_a_row_is_added,_modified_or_deleted": {
+          "metadata": {
+            "operationMetadataId": "f7d4c4ed-bf9d-4566-b025-107818cd96fc"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 3,
+              "subscriptionRequest/entityname": "cp835_claimadjustmentcode",
+              "subscriptionRequest/scope": 1,
+              "subscriptionRequest/filteringattributes": "cp835_resolutionsteps,cp835_feedback"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Initialize_BlobStoragePath": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "194508e1-8503-4582-872c-0b3947047a71"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "BlobStoragePath",
+                "type": "string",
+                "value": "/recs/SubmittedUserFeedback.txt"
+              }
+            ]
+          }
+        },
+        "Try-Add_Feedback": {
+          "actions": {
+            "Html_to_text_Resolution_Steps": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "0a0afe00-8de6-4eb8-87a5-788e12d4e997"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_conversionservice",
+                  "operationId": "HtmlToText",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_conversionservice"
+                },
+                "parameters": {
+                  "Content": "<p class=\"editor-paragraph\">&nbsp;@{triggerOutputs()?['body/cp835_resolutionsteps']}</p>"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Html_to_text_Feedback": {
+              "runAfter": {
+                "Html_to_text_Resolution_Steps": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "1f46d1cd-3ddc-48f1-afe1-927d3dd1841c"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_conversionservice",
+                  "operationId": "HtmlToText",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_conversionservice"
+                },
+                "parameters": {
+                  "Content": "<p class=\"editor-paragraph\">@{triggerOutputs()?['body/cp835_feedback']}</p>"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Compose_New_Content": {
+              "runAfter": {
+                "Html_to_text_Feedback": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "06c5df01-5d47-45d8-ba12-05c71a4d69d0"
+              },
+              "type": "Compose",
+              "inputs": "CARC Code: @{triggerOutputs()?['body/cp835_claimadjustmentreasoncode']}\nResolution Steps: @{if(empty(outputs('Html_to_text_Resolution_Steps')?['body']), '', outputs('Html_to_text_Resolution_Steps')?['body'])}\nFeedback:@{if(empty(outputs('Html_to_text_Feedback')?['body']), '', outputs('Html_to_text_Feedback')?['body'])}"
+            },
+            "Get_blob_content_using_path_(V2)": {
+              "runAfter": {
+                "Compose_New_Content": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "96f24906-c65a-415b-b64a-b8a58d41e773"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_azureblob",
+                  "operationId": "GetFileContentByPath_V2",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_azureblob"
+                },
+                "parameters": {
+                  "dataset": "@parameters('Azure Storage Account Name (rhail_AzureStorageAccountName)')",
+                  "path": "@variables('BlobStoragePath')",
+                  "inferContentType": true
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Update_blob_(V2)": {
+              "runAfter": {
+                "Get_blob_content_using_path_(V2)": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "f5e36b60-4f33-4a83-ab9e-f91b0fa072b9"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_azureblob",
+                  "operationId": "UpdateFile_V2",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_azureblob"
+                },
+                "parameters": {
+                  "dataset": "@parameters('Azure Storage Account Name (rhail_AzureStorageAccountName)')",
+                  "id": "@variables('BlobStoragePath')",
+                  "body": "@{body('Get_blob_content_using_path_(V2)')}\n@{outputs('Compose_New_Content')}"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "HTTP-Refresh_Index": {
+              "runAfter": {
+                "Update_blob_(V2)": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "eebbe474-5c4a-4f7c-ac06-8eb7ac46e04c"
+              },
+              "type": "Http",
+              "inputs": {
+                "method": "POST",
+                "uri": "@{parameters('Azure Search Index URL (rhail_AzureSearchIndexURL)')}/indexers/indexerrec-autocreate/run?api-version=2024-07-01",
+                "headers": {
+                  "Content-Type": "application/json",
+                  "api-key": "@{parameters('Azure Search Index API Key (rhail_AzureSearchIndexAPIKey)')}"
+                }
+              },
+              "runtimeConfiguration": {
+                "contentTransfer": {
+                  "transferMode": "Chunked"
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Initialize_BlobStoragePath": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "0d73b252-313a-4d1a-a9a3-cf5bf81e259a"
+          },
+          "type": "Scope"
+        },
+        "Catch-Add_Feedback": {
+          "actions": {
+            "Terminate": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "caf9676f-fa81-4696-97ef-232ca883f809"
+              },
+              "type": "Terminate",
+              "inputs": {
+                "runStatus": "Failed",
+                "runError": {
+                  "code": "1",
+                  "message": "Failed to insert feedback to Azure Blob Storage"
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Try-Add_Feedback": [
+              "TimedOut",
+              "Skipped",
+              "Failed"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "b2a04a1d-7c31-4c2a-ba49-533e1e829543"
+          },
+          "type": "Scope"
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

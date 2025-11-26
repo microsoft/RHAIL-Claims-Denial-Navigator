@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{4472e572-b470-4a47-abca-bb64707888a6}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form headerdensity="HighWithControls">
+      <tabs>
+        <tab verticallayout="true" id="{f93f5b91-5d01-4246-a14b-d6cd33d365fd}" IsUserDefined="1">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="null_section_4" id="dd39af2f-014e-44b3-a72c-0d11507ba756" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Top" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Recommendations (AI Generated)" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell locklevel="0" id="{f00029df-f1dd-4b95-8230-61bcb20b4c52}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{332d7fb3-3540-41c6-8967-441c1eeeb178}" locklevel="0" colspan="1" rowspan="5" auto="true" showlabel="false">
+                        <labels>
+                          <label description="Recommendation" languagecode="1033" />
+                        </labels>
+                        <control id="rhail_recommendation" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="rhail_recommendation" disabled="true" uniqueid="{58f915a3-6151-4e8a-b457-42fb6d5c3746}" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="section_UserFeedback" id="b6901c60-6048-4fac-9ed5-31439ae2b91d" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="User Feedback" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{67bd7ffc-dc8d-4620-bfb2-6c7fec770789}" locklevel="0" colspan="1" rowspan="1" auto="true">
+                        <labels>
+                          <label description="Actual Resolution Steps" languagecode="1033" />
+                        </labels>
+                        <control id="rhail_resolutionsteps" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="rhail_resolutionsteps" disabled="false" uniqueid="{fd9017ba-e070-4afb-9861-d65dd22594d4}" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{1915a470-c4bb-4d4c-be4f-61ff91b24bbd}" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Recommendation Rating" languagecode="1033" />
+                        </labels>
+                        <control id="rhail_recommendationrating" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="rhail_recommendationrating" uniqueid="{577e5a39-369d-47fb-84b4-73dddfa500f0}" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{37977fe4-bc93-4251-9a3b-8810047cb304}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Feedback" languagecode="1033" />
+                        </labels>
+                        <control id="rhail_feedback" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="rhail_feedback" disabled="false" uniqueid="{6c82db1a-7ef8-4ae7-b4b5-ffbbd974c3d5}" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{7c224bc6-855b-4dca-a4d0-52a6206dc6ee}" columns="1" visible="false">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{08c313a9-8bb3-4916-84c5-9567af762c4d}" visible="false">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{b1c30ab5-5a58-4809-98ea-f206485f4064}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{cb707864-6adb-491f-884e-53c92699c575}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{078ff990-c2ef-45ae-9422-198f3447dde9}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{9d45c5a9-7603-4300-8fa8-34f81a50aa5a}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{e2512ff7-cca4-4242-a1ab-62620a339ea1}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{e0db31a0-3703-4411-8c69-bb9d6704c6d1}" locklevel="0" colspan="1" rowspan="1">
+              <labels>
+                <label description="Amount" languagecode="1033" />
+              </labels>
+              <control id="header_cr6ff_amount" classid="{533B9E00-756B-4312-95A0-DC888637AC78}" datafieldname="cr6ff_amount" disabled="false" />
+            </cell>
+            <cell id="{e56e39fb-2b5c-4d58-ba21-e6b394602d4c}" colspan="1" rowspan="1">
+              <labels>
+                <label description="Name" languagecode="1033" />
+              </labels>
+              <control id="header_rhail_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="rhail_name" />
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{34587822-07d6-43b4-845b-94dcaaf4fb33}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{59ec5c6a-f388-4ab8-b9e9-aced77361ae8}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{113d79cf-f26d-461d-837a-93bc3630dd1c}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{24356fb2-f537-4c2b-b00a-ab93617d7412}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
+      <controlDescriptions>
+        <controlDescription forControl="{577e5a39-369d-47fb-84b4-73dddfa500f0}">
+          <customControl id="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}">
+            <parameters>
+              <datafieldname>rhail_recommendationrating</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl id="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}">
+            <parameters>
+              <datafieldname>rhail_recommendationrating</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="MscrmControls.Rating.StarRatingControl">
+            <parameters>
+              <value type="Whole.None">rhail_recommendationrating</value>
+              <max type="Enum" static="true">5</max>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="MscrmControls.Rating.StarRatingControl">
+            <parameters>
+              <value type="Whole.None">rhail_recommendationrating</value>
+              <max type="Enum" static="true">5</max>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="MscrmControls.Rating.StarRatingControl">
+            <parameters>
+              <value type="Whole.None">rhail_recommendationrating</value>
+              <max type="Enum" static="true">5</max>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{58f915a3-6151-4e8a-b457-42fb6d5c3746}">
+          <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
+            <parameters>
+              <datafieldname>rhail_recommendation</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="MscrmControls.RichTextEditor.RichTextEditorControl">
+            <parameters>
+              <value type="Multiple">rhail_recommendation</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="MscrmControls.RichTextEditor.RichTextEditorControl">
+            <parameters>
+              <value type="Multiple">rhail_recommendation</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="MscrmControls.RichTextEditor.RichTextEditorControl">
+            <parameters>
+              <value type="Multiple">rhail_recommendation</value>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{fd9017ba-e070-4afb-9861-d65dd22594d4}">
+          <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
+            <parameters>
+              <datafieldname>rhail_resolutionsteps</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="MscrmControls.RichTextEditor.RichTextEditorControl">
+            <parameters>
+              <value type="Multiple">rhail_resolutionsteps</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="MscrmControls.RichTextEditor.RichTextEditorControl">
+            <parameters>
+              <value type="Multiple">rhail_resolutionsteps</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="MscrmControls.RichTextEditor.RichTextEditorControl">
+            <parameters>
+              <value type="Multiple">rhail_resolutionsteps</value>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{6c82db1a-7ef8-4ae7-b4b5-ffbbd974c3d5}">
+          <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
+            <parameters>
+              <datafieldname>rhail_feedback</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="MscrmControls.RichTextEditor.RichTextEditorControl">
+            <parameters>
+              <value type="Multiple">rhail_feedback</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="MscrmControls.RichTextEditor.RichTextEditorControl">
+            <parameters>
+              <value type="Multiple">rhail_feedback</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="MscrmControls.RichTextEditor.RichTextEditorControl">
+            <parameters>
+              <value type="Multiple">rhail_feedback</value>
+            </parameters>
+          </customControl>
+        </controlDescription>
+      </controlDescriptions>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

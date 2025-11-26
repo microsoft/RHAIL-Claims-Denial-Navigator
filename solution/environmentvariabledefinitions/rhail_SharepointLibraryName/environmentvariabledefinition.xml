@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="rhail_SharepointLibraryName">
+  <defaultvalue>Documents</defaultvalue>
+  <description default="the library name where the 835 documents will be stores">
+    <label description="the library name where the 835 documents will be stores" languagecode="1033" />
+  </description>
+  <displayname default="Sharepoint Library Name">
+    <label description="Sharepoint Library Name" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.3</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>
