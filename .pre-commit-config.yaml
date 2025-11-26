@@ -1,6 +1,15 @@
+<<<<<<< HEAD
 repos:
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.29.1
     hooks:
       - id: gitleaks
         args: ['--verbose']
+=======
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.29.1
+    hooks:
+      - id: gitleaks
+        args: ['--verbose']
+>>>>>>> ad211bd6ea0bba73d8f80e8e7f1f9f82d2d10f6e
